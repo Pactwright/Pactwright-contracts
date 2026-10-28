@@ -18,7 +18,7 @@ soroban-sdk = { workspace = true }
 soroban-sdk = { workspace = true, features = ["testutils"] }
 pactwright-testutils = { path = "../testutils" }
 ed25519-dalek = "2.2.0"
-stellar-strkey = "0.0.16"
+stellar-strkey = "1.0.0"
 bolero = "0.13"
 # Tollcraft soroban-budget-assert Tier A macros (not on crates.io; pinned commit).
 budget-macros = { git = "https://github.com/Tollcraft/soroban-budget-assert", rev = "b2114411950455e85fbb07b7168fe4aa1a2a2ffe" }

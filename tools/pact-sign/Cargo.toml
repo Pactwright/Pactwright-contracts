@@ -10,4 +10,4 @@ publish = false
 pactwright-pact = { path = "../../contracts/pact" }
 soroban-sdk = { workspace = true, features = ["testutils"] }
 ed25519-dalek = "2.2.0"
-stellar-strkey = "0.0.16"
+stellar-strkey = "1.0.0"
