@@ -59,6 +59,7 @@ The `pact` escrow contract on testnet, tested and cost-bounded.
 - [x] **C-18** `release.yml`: publish `pact.wasm` + hash, TS bindings, test-vectors as release assets — wave · M · C-17 (#55, 2026-10-28)
 - [ ] **C-19** `EVENTS.md`, `INVARIANTS.md`, `BENCHMARKS.md`, `SECURITY_MODEL.md` — wave · M · C-12
 - [x] **C-20** Deploy Pactwright's own `ReceiptAnchor` instance on testnet (admin = anchorer key) — core · M · C-14, F-11 (#55, 2026-10-28)
+- [ ] **C-21** Tier B testnet baselines: scripted stateful flow (test token SAC, open → signed verdict → settle/release/close_meter as real transactions), record network CPU, read/write bytes, entries and fees in `budget.toml` + BENCHMARKS.md, enable `budget-report.yml` — core · H · C-12, C-17, F-11 · ARCH §10 · Done when: every entrypoint has a network-measured baseline and the post-merge job runs.
 
 ## Phase 7 — v1
 

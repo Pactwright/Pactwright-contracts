@@ -5,7 +5,8 @@ on:
 
 jobs:
   budget-report:
-    # Enabled in ROADMAP C-12 once baselines exist.
+    # Tier B (testnet) baselines need a scripted stateful flow: enabled in ROADMAP C-21.
+    # Tier A budgets run in ci.yml (test::budget).
     if: false
     runs-on: ubuntu-latest
     steps:
