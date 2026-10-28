@@ -1,0 +1,20 @@
+[package]
+name = "pactwright-pact"
+description = "Pactwright escrow contract: verdict-gated settlement, signed-usage metering, deadlines"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+pactwright-testutils = { path = "../testutils" }
+# soroban-budget-assert macros (#[budget_cpu_lt] ...) are added in ROADMAP C-12.

@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "formula": "sha256(xdr(buyer) ‖ xdr(seller) ‖ nonce_u64_be ‖ condition_hash)",
+  "cases": []
+}
