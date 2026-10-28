@@ -1,0 +1,13 @@
+name: cost-lint
+on:
+  pull_request:
+
+jobs:
+  cost-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO(C-13): pin to a release commit SHA.
+      - uses: Tollcraft/soroban-cost-linter@main
+        with:
+          config: budget.toml

@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "formula": "u64_be(sha256(idempotency_key)[0..8])",
+  "cases": []
+}

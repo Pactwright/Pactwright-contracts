@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "formula": "sha256(\"pactwright-verdict-v1:\" ‖ xdr(VerdictAttestation))",
+  "cases": []
+}

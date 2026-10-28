@@ -1,0 +1,13 @@
+name: budget-report
+on:
+  push:
+    branches: [main]
+
+jobs:
+  budget-report:
+    # Enabled in ROADMAP C-12 once baselines exist.
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo budget-report --check

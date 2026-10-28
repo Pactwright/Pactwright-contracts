@@ -1,0 +1,5 @@
+target/
+*.wasm
+!vendor/wasm/*.wasm
+.env
+.DS_Store

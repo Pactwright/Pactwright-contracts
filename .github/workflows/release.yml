@@ -1,0 +1,12 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release:
+    # ROADMAP C-18: publish pact.wasm + hash, TS bindings, test-vectors.
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4

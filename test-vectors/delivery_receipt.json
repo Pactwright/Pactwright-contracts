@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "formula": "sha256(\"pactwright-delivery-v1:\" ‖ pact_id ‖ sha256(body))",
+  "cases": []
+}

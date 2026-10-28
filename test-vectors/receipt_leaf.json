@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "formula": "sha256(\"pactwright-receipt-v1\" ‖ pact_id ‖ transition ‖ to_seller ‖ to_buyer ‖ envelope_hash|0 ‖ ledger)",
+  "cases": []
+}

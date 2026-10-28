@@ -1,0 +1,21 @@
+# Shared budget configuration for the Tollcraft cost tooling.
+#
+# Consumed by BOTH tools:
+#   * `cargo budget-report` (soroban-budget-assert, network simulation)
+#   * `cargo cost-lint`     (soroban-cost-linter, static analysis)
+#
+# Baselines: first `cargo budget-report` run on testnet, rounded up, x 1.15 tolerance,
+# committed deliberately (ROADMAP C-12). Re-baseline on protocol upgrades (XC-04).
+#
+# Per-transaction network ceilings:
+#   CPU 100,000,000 · memory 40,000,000 · read 200,000 B · write 66,000 B
+#   40 entry reads · 25 entry writes
+
+network = "testnet"
+source = "deployer"
+
+# [functions.pact.open]
+# cpu_limit = 0          # TODO(C-12)
+# mem_limit = 0
+# read_bytes_limit = 0
+# write_bytes_limit = 0

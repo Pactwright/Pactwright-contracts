@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "formula": "sorted-pair SHA-256 (Accensa ReceiptAnchor / verifyReceipt)",
+  "cases": []
+}
