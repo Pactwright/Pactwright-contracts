@@ -17,7 +17,7 @@ soroban-sdk = { workspace = true }
 [dev-dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }
 pactwright-testutils = { path = "../testutils" }
-ed25519-dalek = "2.2.0"
+ed25519-dalek = "3.0.0"
 stellar-strkey = "0.0.16"
 bolero = "0.13"
 # Tollcraft soroban-budget-assert Tier A macros (not on crates.io; pinned commit).
