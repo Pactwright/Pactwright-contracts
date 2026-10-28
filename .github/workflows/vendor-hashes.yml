@@ -1,7 +1,7 @@
 name: vendor-hashes
 on:
   pull_request:
-    paths: ["vendor/wasm/**"]
+    paths: ["vendor/wasm/**", "scripts/check_vendor_hashes.sh"]
 
 jobs:
   check:

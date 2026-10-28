@@ -13,8 +13,9 @@ jobs:
       RUSTUP_TOOLCHAIN: nightly-2026-04-16
     steps:
       - uses: actions/checkout@v4
-      # TODO(C-13): pin to a release commit SHA.
-      - uses: Tollcraft/soroban-cost-linter@main
+      # Pinned to the Tollcraft main commit that passed on PR #3 (2026-10-28). The only
+      # release, v0.1.0, predates fixes this workflow relies on. Bump deliberately.
+      - uses: Tollcraft/soroban-cost-linter@c4a98e1b7d893b2538b68be8c10f7aa4cd499082
         with:
           config: budget.toml
           toolchain: nightly-2026-04-16
