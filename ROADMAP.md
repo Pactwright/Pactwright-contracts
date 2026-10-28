@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-28 | #58 README | — | README rebuilt: logo (light/dark), evidence-linked badges, reviewer summary, verify-it-yourself commands, on-chain evidence table, Stellar features linked to exact lines, cost table, layout. |
 | 2026-10-28 | #58 (+ Kit#66, studio#22) | C-21, F-04 → `[x]`; F-06, F-07 → `[~]` | Tier B testnet benchmark with real transactions + `--check` limits, `tools/pact-sign`; label scheme unified; `@Pactwright/maintainers` + `@Pactwright/core` teams and CODEOWNERS; Scorecard; anchorer key rotated after exposure (ReceiptAnchor `CAEO5GBC…LNJ2`). |
 | 2026-10-28 | #57 | C-12, C-19 → `[x]`; C-21 added (#56) | Tier A budget tests on all 5 entrypoints in WASM mode (limits measured × 1.15; worst-case partial settle); EVENTS/INVARIANTS/BENCHMARKS/SECURITY_MODEL docs; testnet Tier B split into C-21. Release `v0.1.0-rc.1` published; CI-built WASM hash = deployed hash. 86 tests, 0 ignored. |
 | 2026-10-28 | #55 | P7-01, F-11, C-17, C-20, C-18, F-12, XC-04 → `[x]` | `close_meter` (signed usage vouchers); testnet identities; `pact` (`CDUXJJUN…MFEV6`) and own ReceiptAnchor (`CA2VU3DR…ZGZ3ITX`) deployed on testnet, rebuild matches the deployed hash; deploy/bindings/release scripts + release workflow; refund-key answer (smart-account merchant, KMS meanwhile); network-upgrade runbook. 80 tests. |
