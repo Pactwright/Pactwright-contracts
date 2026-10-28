@@ -68,7 +68,7 @@
 
 ## 10. Receipts [§6.6]
 - Indexer: RPC `getEvents` + **backfill** from a history source; alert at 50% of RPC retention.
-- Anchorer: **reconcile from chain first**; batch ≤ `get_max_batch_size()`; respect `min_anchor_interval`.
+- Anchorer: **reconcile from chain first**; batch ≤ 1000 leaves; `anchor_batch(root, count, period_start, period_end)` (Accensa v0.2.0, no shards; see `vendor/wasm/README.md`).
 - Certificates: `pending` → `anchored`.
 
 ## 11. Interfaces [§8]

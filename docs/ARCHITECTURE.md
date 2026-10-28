@@ -237,8 +237,9 @@ No unbounded data in instance storage.
 ### 4.9 M0 on-chain footprint
 M0 has no `pact` contract call. Money moves through the facilitator's `exact` scheme;
 refunds through `RefundVault.refund(payment_ref = pact_id, recipient = buyer, amount,
-paid_at_ledger, payment_amount, vdf_proof = None, nonce)`, signed by the seller. The
-`RefundVault` rejects a second refund for the same `payment_ref` (`AlreadyRefunded`).
+paid_at_ledger)` (pinned Accensa v0.2.0), signed by the seller: v0.2.0 requires the
+merchant's own auth, with no refund-only role. The `RefundVault` rejects a second refund for
+the same `payment_ref` (`AlreadyRefunded`); tested in `test/integration.rs`.
 
 ## 5. Flows
 
@@ -370,7 +371,7 @@ USDC trustline at startup. Keys come from KMS (B13).
 
 ### 6.6 Indexer and anchorer (studio)
 - **Indexer:** Stellar RPC `getEvents` for `pact`, facilitator settlements to protected routes, and seller `RefundVault` refunds; ledger cursor; **backfill** from a history source when the cursor falls outside RPC retention; alert at 50% of retention.
-- **Anchorer:** **reconciles from the chain first**, then builds a sorted-pair Merkle tree of new leaves (≤ `get_max_batch_size()`, respecting `min_anchor_interval`), calls `ReceiptAnchor.anchor_batch`, stores per-leaf proofs. Certificates are `pending` until anchored.
+- **Anchorer:** **reconciles from the chain first**, then builds a sorted-pair Merkle tree of new leaves (≤ 1000 per batch in the pinned v0.2.0), calls `ReceiptAnchor.anchor_batch(root, count, period_start, period_end)` (v0.2.0 has no shards), stores per-leaf proofs. Certificates are `pending` until anchored.
 
 ### 6.7 MCP server
 `pactwright_find_sellers` · `pactwright_buy` · `pactwright_get_pact` · `pactwright_dispute` · `pactwright_get_certificate`.

@@ -3,6 +3,7 @@ extern crate std;
 
 mod budget;
 mod deadlines;
+mod fuzz;
 mod integration;
 mod invariants;
 mod lifecycle;
