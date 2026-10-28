@@ -6,7 +6,7 @@ jobs:
   cost-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # TODO(C-13): pin to a release commit SHA.
       - uses: Tollcraft/soroban-cost-linter@main
         with:
