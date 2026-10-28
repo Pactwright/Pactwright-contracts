@@ -85,6 +85,30 @@ impl Fixture {
         }
     }
 
+    /// Same fixture, but `pact` runs as the compiled WASM (what the network executes), so cost
+    /// measurements are realistic. Requires `stellar contract build` (or `scripts/build.sh`) first.
+    pub fn with_wasm() -> Self {
+        let mut f = Fixture::new();
+        let path = std::format!(
+            "{}/../../target/wasm32v1-none/release/pactwright_pact.wasm",
+            env!("CARGO_MANIFEST_DIR")
+        );
+        let wasm = std::fs::read(&path).unwrap_or_else(|_| {
+            panic!("{path} not found: run scripts/build.sh before the budget tests")
+        });
+        let id = f.env.register(
+            wasm.as_slice(),
+            (
+                f.admin.clone(),
+                f.token.address.clone(),
+                public_key(&f.env, &f.verifier),
+                MAX_PACT_LEDGERS,
+            ),
+        );
+        f.pact = PactContractClient::new(&f.env, &id);
+        f
+    }
+
     pub fn now(&self) -> u32 {
         self.env.ledger().sequence()
     }

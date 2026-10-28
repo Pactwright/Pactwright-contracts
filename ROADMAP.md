@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Last updated | 2026-10-28 |
-| Progress | **25 / 36 tasks (69%)** |
+| Progress | **27 / 37 tasks (73%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -16,7 +16,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 | Section | Tasks | Done | % |
 |---|---|---|---|
 | Foundations (this repo) | 9 | 5 | 56% |
-| Phase 1 — Contracts MVP | 20 | 18 | 90% |
+| Phase 1 — Contracts MVP | 21 | 20 | 95% |
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
 | Phase 8 — Audit and mainnet | 5 | 0 | 0% |
@@ -50,15 +50,16 @@ The `pact` escrow contract on testnet, tested and cost-bounded.
 - [x] **C-09** Tests: every entrypoint × every error — wave · H · C-04…C-08 (#3, 2026-10-28)
 - [x] **C-10** `deadlines.rs`: fake-clock tests for every deadline boundary and both silence policies — wave · M · C-06, C-07 (#3, 2026-10-28)
 - [x] **C-11** `invariants.rs`: one named test per invariant 1–8 — wave · H · C-04…C-08 · ARCH §4.5 (#3, 2026-10-28)
-- [ ] **C-12** `#[budget_*]` tests on every entrypoint; first `cargo budget-report` on testnet; commit baselines × 1.15 — wave · M · C-17 · ARCH §10
+- [x] **C-12** `#[budget_*]` tests on every entrypoint; first `cargo budget-report` on testnet; commit baselines × 1.15 — wave · M · C-17 · ARCH §10 (#57, 2026-10-28)
 - [x] **C-13** Tollcraft cost-lint Action in CI with zero findings — wave · T · C-01 (#52, 2026-10-28)
 - [x] **C-14** Vendor `refund_vault.wasm` + `receipt_anchor.wasm` with `SHA256SUMS`; `check_vendor_hashes.sh` + workflow — wave · M · C-01 · ADR-008 (#52, 2026-10-28)
 - [x] **C-15** `integration.rs`: `pact` with vendored Accensa WASMs in one env — wave · H · C-14 (#52, 2026-10-28)
 - [x] **C-16** `bolero` fuzz targets: attestation/voucher decoding, amounts, deadlines — wave · M · C-05 (#52, 2026-10-28)
 - [x] **C-17** `build.sh`, `deploy.sh` (pubnet guard), `bindings.sh`; deploy to testnet; `deployments/testnet.env`; `DEPLOYMENTS.md` — core · M · C-07 (#55, 2026-10-28)
 - [x] **C-18** `release.yml`: publish `pact.wasm` + hash, TS bindings, test-vectors as release assets — wave · M · C-17 (#55, 2026-10-28)
-- [ ] **C-19** `EVENTS.md`, `INVARIANTS.md`, `BENCHMARKS.md`, `SECURITY_MODEL.md` — wave · M · C-12
+- [x] **C-19** `EVENTS.md`, `INVARIANTS.md`, `BENCHMARKS.md`, `SECURITY_MODEL.md` — wave · M · C-12 (#57, 2026-10-28)
 - [x] **C-20** Deploy Pactwright's own `ReceiptAnchor` instance on testnet (admin = anchorer key) — core · M · C-14, F-11 (#55, 2026-10-28)
+- [ ] **C-21** Tier B testnet baselines: scripted stateful flow (test token SAC, open → signed verdict → settle/release/close_meter as real transactions), record network CPU, read/write bytes, entries and fees in `budget.toml` + BENCHMARKS.md, enable `budget-report.yml` — core · H · C-12, C-17, F-11 · ARCH §10 · Done when: every entrypoint has a network-measured baseline and the post-merge job runs.
 
 ## Phase 7 — v1
 
@@ -86,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-28 | #57 | C-12, C-19 → `[x]`; C-21 added (#56) | Tier A budget tests on all 5 entrypoints in WASM mode (limits measured × 1.15; worst-case partial settle); EVENTS/INVARIANTS/BENCHMARKS/SECURITY_MODEL docs; testnet Tier B split into C-21. Release `v0.1.0-rc.1` published; CI-built WASM hash = deployed hash. 86 tests, 0 ignored. |
 | 2026-10-28 | #55 | P7-01, F-11, C-17, C-20, C-18, F-12, XC-04 → `[x]` | `close_meter` (signed usage vouchers); testnet identities; `pact` (`CDUXJJUN…MFEV6`) and own ReceiptAnchor (`CA2VU3DR…ZGZ3ITX`) deployed on testnet, rebuild matches the deployed hash; deploy/bindings/release scripts + release workflow; refund-key answer (smart-account merchant, KMS meanwhile); network-upgrade runbook. 80 tests. |
 | 2026-10-28 | #52 | C-13, C-14, C-15, C-16, F-13 → `[x]`; C-01…C-11 → `[x]` (#3) | Vendored Accensa v0.2.0 WASMs with hash checks; integration tests (receipt verifies in ReceiptAnchor, M0 refund once per pact_id); 3 bolero property tests; cost-lint Action pinned; ADR-001…015 written. Docs aligned with v0.2.0 (no shards; refund needs merchant auth). |
 | 2026-10-28 | ci fix (PR #3) | C-13 | cost-lint failed: the Tollcraft Action builds its lint library from this repo's root, where `rust-toolchain.toml` selects stable without `rustc-dev`. Job now sets `RUSTUP_TOOLCHAIN=nightly-2026-04-16`. Upstream fix belongs in the Action (`working-directory` on its build step). |

@@ -344,6 +344,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "budget-macros"
+version = "0.1.0"
+source = "git+https://github.com/Tollcraft/soroban-budget-assert?rev=b2114411950455e85fbb07b7168fe4aa1a2a2ffe#b2114411950455e85fbb07b7168fe4aa1a2a2ffe"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 3.0.9",
+]
+
+[[package]]
 name = "bumpalo"
 version = "3.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1291,6 +1301,7 @@ name = "pactwright-pact"
 version = "0.0.0"
 dependencies = [
  "bolero",
+ "budget-macros",
  "ed25519-dalek",
  "pactwright-testutils",
  "soroban-sdk",

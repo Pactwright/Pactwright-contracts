@@ -14,8 +14,15 @@
 network = "testnet"
 source = "pactwright-deployer"   # stellar CLI identity (F-11)
 
-# [functions.pact.open]
-# cpu_limit = 0          # TODO(C-12)
-# mem_limit = 0
-# read_bytes_limit = 0
-# write_bytes_limit = 0
+# -- Tier A (local, WASM mode) ------------------------------------------------
+# Enforced by contracts/pact/src/test/budget.rs (#[budget_lt]); numbers and the WASM hash
+# they were measured on are in docs/BENCHMARKS.md. Limits = measured x 1.15, rounded up:
+#   open            cpu 1_030_000  mem 1_660_000
+#   record_verdict  cpu 1_300_000  mem 1_570_000
+#   settle          cpu 1_240_000  mem 1_700_000
+#   release         cpu 1_010_000  mem 1_640_000
+#   close_meter     cpu 1_800_000  mem 1_710_000
+#
+# -- Tier B (testnet, cargo budget-report) -----------------------------------
+# Not configured yet: pact entrypoints need state (a funded escrow, signed attestations), which
+# `cargo budget-report`'s single-call simulation cannot set up. Tracked as ROADMAP C-21.
