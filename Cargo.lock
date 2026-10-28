@@ -1178,8 +1178,10 @@ dependencies = [
 name = "pactwright-pact"
 version = "0.0.0"
 dependencies = [
+ "ed25519-dalek",
  "pactwright-testutils",
  "soroban-sdk",
+ "stellar-strkey 0.0.16",
 ]
 
 [[package]]

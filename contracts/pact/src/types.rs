@@ -15,6 +15,12 @@ pub enum PactState {
     Released = 5,
 }
 
+impl PactState {
+    pub fn is_terminal(self) -> bool {
+        matches!(self, PactState::Settled | PactState::Released)
+    }
+}
+
 #[contracttype]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u32)]

@@ -35,6 +35,7 @@
 - `panic_with_error!` only; no unbounded instance storage; every entrypoint has a `#[budget_*]` test; cost-lint must pass.
 
 ## 5. Hashing [§4.3] — byte-identical in Rust and TS, tested against `test-vectors/`
+- Encoding: `xdr` = ScVal XDR; integers big-endian; ed25519 signs the 32-byte digest. Regenerate with `scripts/gen_vectors.sh`; `cargo test` fails on drift.
 - `nonce = u64_be(sha256(idempotency_key)[0..8])`
 - `pact_id = sha256(xdr(buyer) ‖ xdr(seller) ‖ nonce ‖ condition_hash)`
 - Verdict msg `sha256("pactwright-verdict-v1:" ‖ xdr(VerdictAttestation))`

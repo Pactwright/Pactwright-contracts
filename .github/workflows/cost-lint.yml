@@ -5,9 +5,16 @@ on:
 jobs:
   cost-lint:
     runs-on: ubuntu-latest
+    env:
+      # The Action builds its lint library from this repo's root, where
+      # rust-toolchain.toml would select stable (no rustc-dev). Force the
+      # Action's nightly for every step; RUSTUP_TOOLCHAIN overrides the file.
+      # Keep in sync with the Action's `toolchain` input default.
+      RUSTUP_TOOLCHAIN: nightly-2026-04-16
     steps:
       - uses: actions/checkout@v4
       # TODO(C-13): pin to a release commit SHA.
       - uses: Tollcraft/soroban-cost-linter@main
         with:
           config: budget.toml
+          toolchain: nightly-2026-04-16
