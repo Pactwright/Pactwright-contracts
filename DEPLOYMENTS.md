@@ -8,7 +8,7 @@ Machine-readable values live in [`deployments/<network>.env`](deployments/), wri
 
 Deployed 2026-10-28 with `scripts/deploy.sh testnet all` (stellar-cli 28.1.0, rustc 1.98.1,
 `wasm32v1-none`). The `pact` WASM was built from the source in the PR that added this file
-(branch `feat/metering-testnet-deploy-release`); rebuild with `scripts/build.sh` and compare
+(PR #55, branch `feat/metering-testnet-deploy-release`); rebuild with `scripts/build.sh` and compare
 the hash.
 
 | Contract | ID | WASM sha256 | Notes |

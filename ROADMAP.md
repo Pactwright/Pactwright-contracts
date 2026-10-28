@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Last updated | 2026-10-28 |
-| Progress | **18 / 33 tasks (55%)** |
+| Progress | **25 / 36 tasks (69%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -15,9 +15,10 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 
 | Section | Tasks | Done | % |
 |---|---|---|---|
-| Foundations (this repo) | 7 | 3 | 43% |
-| Phase 1 — Contracts MVP | 20 | 15 | 75% |
-| Phase 7 — v1 | 1 | 0 | 0% |
+| Foundations (this repo) | 9 | 5 | 56% |
+| Phase 1 — Contracts MVP | 20 | 18 | 90% |
+| Phase 7 — v1 | 1 | 1 | 100% |
+| Cross-cutting (this repo) | 1 | 1 | 100% |
 | Phase 8 — Audit and mainnet | 5 | 0 | 0% |
 
 ## Foundations (this repo)
@@ -31,6 +32,8 @@ Repo-level setup tasks.
 - [~] **F-06** `CODEOWNERS` for core-team-only paths — core · T · F-02 · project_structure §7
 - [ ] **F-07** OpenSSF Scorecard, Dependabot, branch protection (CI + review required) — core · T · F-02
 - [x] **F-13** Write ADR files ADR-001…ADR-015 into `pactwright-contracts/docs/adr/` — wave · M · F-02 · ARCH §15 (#52, 2026-10-28)
+- [x] **F-11** Testnet keys: deployer, sponsor (fees + reserves), verifier, anchorer; stored in a secrets manager — core · M · — · ARCH §9 (#55, 2026-10-28)
+- [x] **F-12** Answer Q5: does `RefundVault` support a refund-only key? Read `refund-vault` source and record the answer in PRD §12 — core · M · — · Q5 (#55, 2026-10-28)
 
 ## Phase 1 — Contracts MVP
 
@@ -52,16 +55,16 @@ The `pact` escrow contract on testnet, tested and cost-bounded.
 - [x] **C-14** Vendor `refund_vault.wasm` + `receipt_anchor.wasm` with `SHA256SUMS`; `check_vendor_hashes.sh` + workflow — wave · M · C-01 · ADR-008 (#52, 2026-10-28)
 - [x] **C-15** `integration.rs`: `pact` with vendored Accensa WASMs in one env — wave · H · C-14 (#52, 2026-10-28)
 - [x] **C-16** `bolero` fuzz targets: attestation/voucher decoding, amounts, deadlines — wave · M · C-05 (#52, 2026-10-28)
-- [ ] **C-17** `build.sh`, `deploy.sh` (pubnet guard), `bindings.sh`; deploy to testnet; `deployments/testnet.env`; `DEPLOYMENTS.md` — core · M · C-07
-- [ ] **C-18** `release.yml`: publish `pact.wasm` + hash, TS bindings, test-vectors as release assets — wave · M · C-17
+- [x] **C-17** `build.sh`, `deploy.sh` (pubnet guard), `bindings.sh`; deploy to testnet; `deployments/testnet.env`; `DEPLOYMENTS.md` — core · M · C-07 (#55, 2026-10-28)
+- [x] **C-18** `release.yml`: publish `pact.wasm` + hash, TS bindings, test-vectors as release assets — wave · M · C-17 (#55, 2026-10-28)
 - [ ] **C-19** `EVENTS.md`, `INVARIANTS.md`, `BENCHMARKS.md`, `SECURITY_MODEL.md` — wave · M · C-12
-- [ ] **C-20** Deploy Pactwright's own `ReceiptAnchor` instance on testnet (admin = anchorer key) — core · M · C-14, F-11
+- [x] **C-20** Deploy Pactwright's own `ReceiptAnchor` instance on testnet (admin = anchorer key) — core · M · C-14, F-11 (#55, 2026-10-28)
 
 ## Phase 7 — v1
 
 Metering.
 
-- [ ] **P7-01** Contract: `close_meter` + `UsageVoucher` verification + tests + budget tests; remove the metered guard in `open` and re-enable the tests marked `ROADMAP P7-01` — core · H · C-11 · FR-M3, ADR-010
+- [x] **P7-01** Contract: `close_meter` + `UsageVoucher` verification + tests + budget tests; remove the metered guard in `open` and re-enable the tests marked `ROADMAP P7-01` — core · H · C-11 · FR-M3, ADR-010 (#55, 2026-10-28)
 
 ## Phase 8 — Audit and mainnet
 
@@ -73,10 +76,17 @@ Metering.
 - [ ] **P8-06** Pubnet rent/TTL measurement with `budget-report`; re-baseline budgets — wave · M · P8-03
 - [ ] **P8-08** Hackathon goal 1: first M2 pact settled on mainnet — core · T · P8-07
 
+## Cross-cutting (this repo)
+
+Ongoing work whose issues live in this repo.
+
+- [x] **XC-04** Network-upgrade runbook: re-baseline budgets, re-run e2e — wave · M · C-12 (#55, 2026-10-28)
+
 ## Update log
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-28 | #55 | P7-01, F-11, C-17, C-20, C-18, F-12, XC-04 → `[x]` | `close_meter` (signed usage vouchers); testnet identities; `pact` (`CDUXJJUN…MFEV6`) and own ReceiptAnchor (`CA2VU3DR…ZGZ3ITX`) deployed on testnet, rebuild matches the deployed hash; deploy/bindings/release scripts + release workflow; refund-key answer (smart-account merchant, KMS meanwhile); network-upgrade runbook. 80 tests. |
 | 2026-10-28 | #52 | C-13, C-14, C-15, C-16, F-13 → `[x]`; C-01…C-11 → `[x]` (#3) | Vendored Accensa v0.2.0 WASMs with hash checks; integration tests (receipt verifies in ReceiptAnchor, M0 refund once per pact_id); 3 bolero property tests; cost-lint Action pinned; ADR-001…015 written. Docs aligned with v0.2.0 (no shards; refund needs merchant auth). |
 | 2026-10-28 | ci fix (PR #3) | C-13 | cost-lint failed: the Tollcraft Action builds its lint library from this repo's root, where `rust-toolchain.toml` selects stable without `rustc-dev`. Job now sets `RUSTUP_TOOLCHAIN=nightly-2026-04-16`. Upstream fix belongs in the Action (`working-directory` on its build step). |
 | 2026-10-28 | metered guard | C-04, P7-01 | `open` rejects metered pacts (`IsMetered`) until `close_meter` ships; metered-path tests parked as `ROADMAP P7-01`. 61 pass / 11 ignored. |
