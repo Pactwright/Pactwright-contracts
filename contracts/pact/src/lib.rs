@@ -7,7 +7,8 @@
 mod admin;
 mod errors;
 mod events;
-mod hashing;
+/// Identifiers and signed-message digests, shared with off-chain tools (`tools/pact-sign`).
+pub mod hashing;
 mod lifecycle;
 mod meter;
 mod storage;

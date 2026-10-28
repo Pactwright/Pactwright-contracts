@@ -1,0 +1,68 @@
+{
+  "network": "testnet",
+  "bench_pact": "CBWEAVYZD6SP3PA5V6ZGEBHBUYJENBAAG5CFBTB6FCYDYZGPYRZZQEQM",
+  "token": "CAWLQKRF6ZIOPLV5XLTKVJL4HBGK4DAAWQOANZ2GFGBTEGW2HHLA334G",
+  "wasm": "748b5dbcc800d8cd3bdaf4b24555bfa8e3659cdefb60888791fb9a086b35d1a4",
+  "rows": [
+    {
+      "label": "open",
+      "tx": "e782ba7a347590e1c310a0d31dcd4632547b2140b1dc3204060be03a9390ab61",
+      "ledger": 5440179,
+      "instructions": 1071584,
+      "disk_read_bytes": 268,
+      "write_bytes": 1100,
+      "read_only_entries": 4,
+      "read_write_entries": 3,
+      "resource_fee": 211807,
+      "fee_charged": 181442
+    },
+    {
+      "label": "record_verdict",
+      "tx": "8ed129b4f2590330dea6e3c08c8f06c59a9687ec1a6a2ad046e0f63f7ed832a4",
+      "ledger": 5440181,
+      "instructions": 1647891,
+      "disk_read_bytes": 0,
+      "write_bytes": 788,
+      "read_only_entries": 2,
+      "read_write_entries": 1,
+      "resource_fee": 14156,
+      "fee_charged": 8791
+    },
+    {
+      "label": "settle",
+      "tx": "52899433fce58051a2b5f7690849fc086e033fc6ee4b0b386b211529ff2f9ae4",
+      "ledger": 5440183,
+      "instructions": 1191764,
+      "disk_read_bytes": 248,
+      "write_bytes": 1260,
+      "read_only_entries": 3,
+      "read_write_entries": 4,
+      "resource_fee": 17060,
+      "fee_charged": 12059
+    },
+    {
+      "label": "release",
+      "tx": "214da9bc23b3cceb96fbc2c17b3c1ada9f02d91a126a73128b0d45b384b7b8c7",
+      "ledger": 5440189,
+      "instructions": 1032490,
+      "disk_read_bytes": 124,
+      "write_bytes": 1136,
+      "read_only_entries": 3,
+      "read_write_entries": 3,
+      "resource_fee": 13656,
+      "fee_charged": 8750
+    },
+    {
+      "label": "close_meter",
+      "tx": "60409d845346a18a066cc58ba8393d4a365a8f2e787afbde22268a3bfa26259a",
+      "ledger": 5440193,
+      "instructions": 2039236,
+      "disk_read_bytes": 248,
+      "write_bytes": 1340,
+      "read_only_entries": 3,
+      "read_write_entries": 4,
+      "resource_fee": 17704,
+      "fee_charged": 12694
+    }
+  ]
+}

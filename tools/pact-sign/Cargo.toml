@@ -1,0 +1,13 @@
+[package]
+name = "pact-sign"
+description = "Off-chain pact ids and signatures (verdict attestations, usage vouchers) using the contract's own hashing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+pactwright-pact = { path = "../../contracts/pact" }
+soroban-sdk = { workspace = true, features = ["testutils"] }
+ed25519-dalek = "2.2.0"
+stellar-strkey = "0.0.16"

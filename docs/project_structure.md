@@ -259,7 +259,9 @@ pactwright-studio/
 
 | Item | Rule |
 |---|---|
-| Labels | `Stellar Wave`, `complexity: trivial|medium|high`, `area: contracts|kit|verifier|studio|docs|ci`, `good first issue`, `core-team-only` |
+| Labels | Identical in all three repos (F-04): `complexity: trivial|medium|high`, `area: contracts|kit|verifier|studio|facilitator|docs|ci|org|ops|security`, `type: feature|bug|test|docs|chore|research`, `release: MVP|v1|v1.1|v2`, `core-team-only`, `Stellar Wave` (applied only after Wave approval), `blocked`; kept defaults `good first issue`, `help wanted`, `duplicate`, `invalid`, `question`, `wontfix`; Dependabot adds ecosystem labels (e.g. `rust`) |
+| Teams | `@Pactwright/maintainers` (maintain, all repos) and `@Pactwright/core` (write; owns core-team-only paths in CODEOWNERS) (F-06) |
+| Branch protection | `main`: PR + 1 approving review + CODEOWNERS review; required checks per repo (F-07) |
 | Core-team-only | `lifecycle.rs`, `verdict.rs`, `meter.rs`, `hashing.rs`, `services/verifier/src/sign.ts`, the facilitator `pact` scheme's validation code — never labelled `Stellar Wave` |
 | Issue template | Context · acceptance criteria · files involved · out of scope · **roadmap task ID** |
 | PR template | Checklist starts with "`ROADMAP.md` updated (status, counts, Update log)" |
@@ -315,3 +317,15 @@ The scaffold follows §3–5 and adds these files, which belong to the structure
 | `packages/core/test/vectors/accensa/` | Accensa's Merkle conformance vectors (MIT), copied unchanged |
 | `vendor/witness-core/{UPSTREAM.md,NOTICE,LICENSE,tsconfig*.json}` | Provenance and the upstream-settings build |
 | `services/verifier/test/` | Verifier tests (rules, HTTP API, store, config) |
+
+### Contracts additions (#55, #57, C-21)
+
+| Path | Purpose |
+|---|---|
+| `tools/pact-sign/` | CLI: pact IDs, verdict and usage signatures with the contract's own `hashing` (secrets via `PACT_SIGN_SECRET`) |
+| `scripts/bench-testnet.sh` | Tier B: real testnet transactions per entrypoint; `--check` against `budget.toml` `[tier_b]` |
+| `scripts/release-assets.sh` | Release assets (WASM, hash, bindings, vectors, notes) |
+| `docs/benchmarks/` | Raw benchmark reports (JSON) |
+| `docs/RUNBOOK-network-upgrade.md` | Protocol upgrades and testnet resets |
+| `.github/workflows/bench-testnet.yml` | Manual Tier B run (replaces `budget-report.yml`) |
+| `.github/workflows/scorecard.yml` | OpenSSF Scorecard (all three repos) |

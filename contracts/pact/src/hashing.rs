@@ -32,8 +32,7 @@ fn domain_digest(env: &Env, domain: &[u8], payload: &Bytes) -> BytesN<32> {
 }
 
 /// `u64_be(sha256(idempotency_key)[0..8])`. Off-chain; defined here for the test vectors.
-#[allow(dead_code)]
-pub(crate) fn nonce_from_key(env: &Env, idempotency_key: &Bytes) -> u64 {
+pub fn nonce_from_key(env: &Env, idempotency_key: &Bytes) -> u64 {
     let digest = sha256(env, idempotency_key).to_array();
     let mut first = [0u8; 8];
     first.copy_from_slice(&digest[..8]);
@@ -41,7 +40,7 @@ pub(crate) fn nonce_from_key(env: &Env, idempotency_key: &Bytes) -> u64 {
 }
 
 /// Preimage of `pact_id`: `xdr(buyer) ‖ xdr(seller) ‖ nonce_u64_be ‖ condition_hash`.
-pub(crate) fn pact_id_preimage(
+pub fn pact_id_preimage(
     env: &Env,
     buyer: &Address,
     seller: &Address,
@@ -56,7 +55,7 @@ pub(crate) fn pact_id_preimage(
 }
 
 /// `sha256(xdr(buyer) ‖ xdr(seller) ‖ nonce_u64_be ‖ condition_hash)`
-pub(crate) fn pact_id(
+pub fn pact_id(
     env: &Env,
     buyer: &Address,
     seller: &Address,
@@ -70,23 +69,18 @@ pub(crate) fn pact_id(
 }
 
 /// `sha256("pactwright-verdict-v1:" ‖ xdr(attestation))` — the bytes the verifier signs.
-pub(crate) fn verdict_message(env: &Env, attestation: &VerdictAttestation) -> BytesN<32> {
+pub fn verdict_message(env: &Env, attestation: &VerdictAttestation) -> BytesN<32> {
     domain_digest(env, VERDICT_DOMAIN, &attestation.clone().to_xdr(env))
 }
 
 /// `sha256("pactwright-usage-v1:" ‖ xdr(voucher))` — the bytes the buyer's meter key signs.
-pub(crate) fn usage_message(env: &Env, voucher: &UsageVoucher) -> BytesN<32> {
+pub fn usage_message(env: &Env, voucher: &UsageVoucher) -> BytesN<32> {
     domain_digest(env, USAGE_DOMAIN, &voucher.clone().to_xdr(env))
 }
 
 /// `sha256("pactwright-delivery-v1:" ‖ pact_id ‖ body_sha256)`. Off-chain (seller signs);
 /// defined here for the test vectors.
-#[allow(dead_code)]
-pub(crate) fn delivery_message(
-    env: &Env,
-    pact_id: &BytesN<32>,
-    body_sha256: &BytesN<32>,
-) -> BytesN<32> {
+pub fn delivery_message(env: &Env, pact_id: &BytesN<32>, body_sha256: &BytesN<32>) -> BytesN<32> {
     let mut payload = as_bytes(env, pact_id);
     payload.append(&as_bytes(env, body_sha256));
     domain_digest(env, DELIVERY_DOMAIN, &payload)
@@ -96,8 +90,7 @@ pub(crate) fn delivery_message(
 /// to_buyer_i128 ‖ envelope_hash_or_32_zero_bytes ‖ ledger_u32)`. Computed off-chain by the
 /// anchorer; defined here so the test vectors have one source.
 /// Transitions: 1 Paid, 2 Settled, 3 Released, 4 Refunded.
-#[allow(dead_code)]
-pub(crate) fn receipt_leaf(
+pub fn receipt_leaf(
     env: &Env,
     pact_id: &BytesN<32>,
     transition: u32,
@@ -117,6 +110,6 @@ pub(crate) fn receipt_leaf(
 }
 
 /// Digest as `Bytes`, the message type `ed25519_verify` takes.
-pub(crate) fn message_bytes(env: &Env, digest: &BytesN<32>) -> Bytes {
+pub fn message_bytes(env: &Env, digest: &BytesN<32>) -> Bytes {
     as_bytes(env, digest)
 }
