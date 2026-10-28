@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Last updated | 2026-10-28 |
-| Progress | **29 / 37 tasks (78%)** |
+| Progress | **31 / 37 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -15,7 +15,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 
 | Section | Tasks | Done | % |
 |---|---|---|---|
-| Foundations (this repo) | 9 | 6 | 67% |
+| Foundations (this repo) | 9 | 8 | 89% |
 | Phase 1 — Contracts MVP | 21 | 21 | 100% |
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
@@ -29,8 +29,8 @@ Repo-level setup tasks.
 - [x] **F-03** Add `ROADMAP.md`, `AGENTS.md`, `CONTRIBUTING.md` (with the roadmap rule) and copies of the 4 design docs to each repo — core · T · F-02 · Done when: every repo states the roadmap rule. (pushed, 2026-10-28)
 - [x] **F-04** Labels (`Stellar Wave`, `complexity:*`, `area:*`, `good first issue`, `core-team-only`), issue template, PR template with a "ROADMAP.md updated" checkbox — core · T · F-02 · project_structure §7 (#58, 2026-10-28)
 - [~] **F-05** `roadmap-check` CI workflow in all 3 repos: fails a PR that doesn't modify `ROADMAP.md` — core · M · F-02 · Done when: a PR without a roadmap change fails CI.
-- [~] **F-06** `CODEOWNERS` for core-team-only paths — core · T · F-02 · project_structure §7
-- [~] **F-07** OpenSSF Scorecard, Dependabot, branch protection (CI + review required) — core · T · F-02
+- [x] **F-06** `CODEOWNERS` for core-team-only paths — core · T · F-02 · project_structure §7 (#59, 2026-10-28)
+- [x] **F-07** OpenSSF Scorecard, Dependabot, branch protection (CI + review required) — core · T · F-02 (#59, 2026-10-28)
 - [x] **F-13** Write ADR files ADR-001…ADR-015 into `pactwright-contracts/docs/adr/` — wave · M · F-02 · ARCH §15 (#52, 2026-10-28)
 - [x] **F-11** Testnet keys: deployer, sponsor (fees + reserves), verifier, anchorer; stored in a secrets manager — core · M · — · ARCH §9 (#55, 2026-10-28)
 - [x] **F-12** Answer Q5: does `RefundVault` support a refund-only key? Read `refund-vault` source and record the answer in PRD §12 — core · M · — · Q5 (#55, 2026-10-28)
@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-28 | #59 | F-06, F-07 → `[x]` | README rewritten to explain the project: why it exists, plain-language glossary, purchase walkthrough (sequence diagram), state machine, M0 vs M2, roles and trust, failure scenarios, API and error-code reference, FAQ, and a full License section (MIT terms, every third-party license and where it ends up, sister-repo licenses). Logo assets from the unmerged #58 README commit. CODEOWNERS, Scorecard and branch protection are live on all 3 repos; `bench-testnet` workflow passes with the repo secrets. |
 | 2026-10-28 | #58 (+ Kit#66, studio#22) | C-21, F-04 → `[x]`; F-06, F-07 → `[~]` | Tier B testnet benchmark with real transactions + `--check` limits, `tools/pact-sign`; label scheme unified; `@Pactwright/maintainers` + `@Pactwright/core` teams and CODEOWNERS; Scorecard; anchorer key rotated after exposure (ReceiptAnchor `CAEO5GBC…LNJ2`). |
 | 2026-10-28 | #57 | C-12, C-19 → `[x]`; C-21 added (#56) | Tier A budget tests on all 5 entrypoints in WASM mode (limits measured × 1.15; worst-case partial settle); EVENTS/INVARIANTS/BENCHMARKS/SECURITY_MODEL docs; testnet Tier B split into C-21. Release `v0.1.0-rc.1` published; CI-built WASM hash = deployed hash. 86 tests, 0 ignored. |
 | 2026-10-28 | #55 | P7-01, F-11, C-17, C-20, C-18, F-12, XC-04 → `[x]` | `close_meter` (signed usage vouchers); testnet identities; `pact` (`CDUXJJUN…MFEV6`) and own ReceiptAnchor (`CA2VU3DR…ZGZ3ITX`) deployed on testnet, rebuild matches the deployed hash; deploy/bindings/release scripts + release workflow; refund-key answer (smart-account merchant, KMS meanwhile); network-upgrade runbook. 80 tests. |
