@@ -1,12 +1,38 @@
 name: release
+
+# On a v* tag: test, build the pact WASM, TS bindings and test vectors, and publish them as
+# release assets (ROADMAP C-18). Pre-release when the tag has a suffix (v0.1.0-rc.1).
 on:
   push:
     tags: ["v*"]
 
+permissions:
+  contents: write
+
 jobs:
   release:
-    # ROADMAP C-18: publish pact.wasm + hash, TS bindings, test-vectors.
-    if: false
     runs-on: ubuntu-latest
+    env:
+      STELLAR_CLI_VERSION: 28.1.0
     steps:
       - uses: actions/checkout@v4
+      - run: rustup show   # toolchain + wasm32v1-none from rust-toolchain.toml
+      - name: Install stellar-cli
+        run: |
+          curl -fsSL "https://github.com/stellar/stellar-cli/releases/download/v${STELLAR_CLI_VERSION}/stellar-cli-${STELLAR_CLI_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C /usr/local/bin stellar
+          stellar --version
+      - run: scripts/check_vendor_hashes.sh
+      - run: cargo test --locked
+      - run: scripts/release-assets.sh "$GITHUB_REF_NAME"
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          case "$GITHUB_REF_NAME" in *-*) prerelease="--prerelease" ;; esac
+          gh release create "$GITHUB_REF_NAME" dist/release/pactwright_pact.wasm \
+            dist/release/pactwright_pact.wasm.sha256 dist/release/pactwright-pact-bindings.tgz \
+            dist/release/test-vectors.tgz \
+            --title "Pactwright contracts $GITHUB_REF_NAME" --notes-file dist/release/NOTES.md \
+            --verify-tag $prerelease

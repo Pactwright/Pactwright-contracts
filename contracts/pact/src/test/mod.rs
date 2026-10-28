@@ -157,6 +157,16 @@ impl Fixture {
         self.pact.record_verdict(pact_id, &attestation, &signature);
     }
 
+    /// The buyer's meter-key signature over `UsageVoucher { pact_id, units }`.
+    pub fn sign_usage(&self, pact_id: &BytesN<32>, units: u32) -> BytesN<64> {
+        let voucher = crate::UsageVoucher {
+            pact_id: pact_id.clone(),
+            units,
+        };
+        let digest = hashing::usage_message(&self.env, &voucher).to_array();
+        BytesN::from_array(&self.env, &signing_key(9).sign(&digest).to_bytes())
+    }
+
     pub fn balance(&self, who: &Address) -> i128 {
         self.token.balance(who)
     }

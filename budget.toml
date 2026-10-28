@@ -12,7 +12,7 @@
 #   40 entry reads · 25 entry writes
 
 network = "testnet"
-source = "deployer"
+source = "pactwright-deployer"   # stellar CLI identity (F-11)
 
 # [functions.pact.open]
 # cpu_limit = 0          # TODO(C-12)
