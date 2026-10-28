@@ -23,6 +23,14 @@ source = "pactwright-deployer"   # stellar CLI identity (F-11)
 #   release         cpu 1_010_000  mem 1_640_000
 #   close_meter     cpu 1_800_000  mem 1_710_000
 #
-# -- Tier B (testnet, cargo budget-report) -----------------------------------
-# Not configured yet: pact entrypoints need state (a funded escrow, signed attestations), which
-# `cargo budget-report`'s single-call simulation cannot set up. Tracked as ROADMAP C-21.
+# -- Tier B (testnet, real transactions) -------------------------------------
+# Measured by scripts/bench-testnet.sh (ROADMAP C-21): a scripted stateful flow, because
+# `cargo budget-report` simulates single calls on a fresh deployment and pact calls need state.
+# Limits = network-declared resources x 1.15, rounded up; `scripts/bench-testnet.sh --check`
+# fails if a real transaction exceeds them. Evidence: docs/benchmarks/2026-10-28-testnet.json.
+[tier_b]
+open           = { instructions = 1_240_000, disk_read_bytes = 310, write_bytes = 1_270 }
+record_verdict = { instructions = 1_900_000, disk_read_bytes = 0,   write_bytes = 910 }
+settle         = { instructions = 1_380_000, disk_read_bytes = 290, write_bytes = 1_450 }
+release        = { instructions = 1_190_000, disk_read_bytes = 150, write_bytes = 1_310 }
+close_meter    = { instructions = 2_350_000, disk_read_bytes = 290, write_bytes = 1_550 }

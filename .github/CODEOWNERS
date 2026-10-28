@@ -1,7 +1,10 @@
-# Core-team-only paths (never labelled `Stellar Wave`). Replace with org teams in ROADMAP F-06.
-*                                   @mallison031
-/contracts/pact/src/lifecycle.rs    @mallison031
-/contracts/pact/src/verdict.rs      @mallison031
-/contracts/pact/src/meter.rs        @mallison031
-/contracts/pact/src/hashing.rs      @mallison031
-/test-vectors/                      @mallison031
+# Owners (ROADMAP F-06). Core-team-only paths are never labelled `Stellar Wave`.
+*                                   @Pactwright/maintainers
+/contracts/pact/src/lifecycle.rs    @Pactwright/core
+/contracts/pact/src/verdict.rs      @Pactwright/core
+/contracts/pact/src/meter.rs        @Pactwright/core
+/contracts/pact/src/hashing.rs      @Pactwright/core
+/test-vectors/                      @Pactwright/core
+/tools/pact-sign/                   @Pactwright/core
+/vendor/wasm/                       @Pactwright/core
+/deployments/                       @Pactwright/core

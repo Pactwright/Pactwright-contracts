@@ -1,0 +1,51 @@
+name: bench-testnet
+
+# Tier B: real testnet transactions for every pact entrypoint, checked against the limits in
+# budget.toml (ROADMAP C-21). Replaces budget-report.yml: `cargo budget-report` simulates single
+# calls on a fresh deployment, while pact calls need state.
+#
+# Manual (it spends testnet fees and creates a bench deployment each run). Needs repository
+# secrets TESTNET_DEPLOYER_SECRET, TESTNET_SPONSOR_SECRET and TESTNET_VERIFIER_SECRET
+# (Stellar secret seeds of pactwright-deployer, -sponsor, -verifier). Bench buyer, seller and
+# meter accounts are generated fresh on every run.
+on:
+  workflow_dispatch:
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    env:
+      STELLAR_CLI_VERSION: 28.1.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require secrets
+        env:
+          DEPLOYER: ${{ secrets.TESTNET_DEPLOYER_SECRET }}
+          SPONSOR: ${{ secrets.TESTNET_SPONSOR_SECRET }}
+          VERIFIER: ${{ secrets.TESTNET_VERIFIER_SECRET }}
+        run: |
+          for v in DEPLOYER SPONSOR VERIFIER; do
+            [ -n "${!v}" ] || { echo "::error::secret for $v is not set (see workflow header)"; exit 1; }
+          done
+      - run: rustup show
+      - name: Install stellar-cli
+        run: |
+          curl -fsSL "https://github.com/stellar/stellar-cli/releases/download/v${STELLAR_CLI_VERSION}/stellar-cli-${STELLAR_CLI_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin stellar
+      - name: Load identities
+        env:
+          DEPLOYER: ${{ secrets.TESTNET_DEPLOYER_SECRET }}
+          SPONSOR: ${{ secrets.TESTNET_SPONSOR_SECRET }}
+          VERIFIER: ${{ secrets.TESTNET_VERIFIER_SECRET }}
+        run: |
+          dir="$HOME/.config/stellar/identity"; mkdir -p "$dir"
+          printf 'secret_key = "%s"\n' "$DEPLOYER" > "$dir/pactwright-deployer.toml"
+          printf 'secret_key = "%s"\n' "$SPONSOR"  > "$dir/pactwright-sponsor.toml"
+          printf 'secret_key = "%s"\n' "$VERIFIER" > "$dir/pactwright-verifier.toml"
+          chmod 600 "$dir"/*.toml
+      - run: scripts/bench-testnet.sh --check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bench-testnet
+          path: dist/bench/

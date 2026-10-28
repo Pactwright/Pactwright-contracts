@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["contracts/pact", "contracts/testutils"]
+members = ["contracts/pact", "contracts/testutils", "tools/pact-sign"]
 
 [workspace.package]
 version = "0.0.0"

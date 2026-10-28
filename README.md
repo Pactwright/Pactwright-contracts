@@ -2,6 +2,9 @@
 
 **Soroban contracts for Pactwright — accountable AI-agent purchases on Stellar.**
 
+[![ci](https://github.com/Pactwright/Pactwright-contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/Pactwright/Pactwright-contracts/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Pactwright/Pactwright-contracts/badge)](https://scorecard.dev/viewer/?uri=github.com/Pactwright/Pactwright-contracts)
+
 > Status: scaffold. Nothing is deployed yet. See [`ROADMAP.md`](ROADMAP.md).
 
 ## The problem
