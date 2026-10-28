@@ -17,4 +17,6 @@ soroban-sdk = { workspace = true }
 [dev-dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }
 pactwright-testutils = { path = "../testutils" }
+ed25519-dalek = "2.2.0"
+stellar-strkey = "0.0.16"
 # soroban-budget-assert macros (#[budget_cpu_lt] ...) are added in ROADMAP C-12.

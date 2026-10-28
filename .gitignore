@@ -3,3 +3,4 @@ target/
 !vendor/wasm/*.wasm
 .env
 .DS_Store
+test_snapshots/

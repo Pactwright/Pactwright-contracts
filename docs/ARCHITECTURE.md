@@ -187,14 +187,16 @@ pub struct Config {
 
 All domain prefixes differ from each other and from Witness's `conditional-release-verdict-v1:`.
 
+**Encoding:** `xdr(x)` is the XDR of the value's `ScVal`; integers are big-endian (`i128` = 16 bytes, two's complement); `‖` is byte concatenation; ed25519 signs the 32-byte digest. `condition_hash` vectors come from Pactwright-Kit (canonical JSON); the contract treats it as opaque bytes. Merkle odd-count handling is confirmed against Accensa's SDK in K-04.
+
 ### 4.4 Entrypoints
 
 | Function | Auth | Preconditions | Effect |
 |---|---|---|---|
 | `__constructor(admin, token, verifier, max_pact_ledgers)` | — | — | Stores `Config` |
 | `set_verifier(key)` | admin | — | Rotates the key **for new pacts only** (ADR-014) |
-| `open(params: OpenParams) → pact_id` (`OpenParams` = buyer, seller, cap, nonce, condition_hash, meter, silence, verdict_deadline, settle_deadline) | buyer | `cap > 0`; `buyer ≠ seller`; `now < verdict_deadline ≤ settle_deadline ≤ now + max_pact_ledgers`; `pact_id` unused | `token.transfer(buyer → pact, cap)`; snapshot `verifier`; TTL extended past `settle_deadline + GRACE` → `Funded` |
-| `record_verdict(pact_id, att, sig)` | none (signature is the authority) | `Funded`; not metered; `now ≤ verdict_deadline`; `att.pact_id`/`condition_hash` match; `att.amount ≤ cap`; `ed25519_verify(pact.verifier, msg, sig)` | ALLOW → `Allowed`, `allowed_amount = att.amount`; DENY → `Denied` |
+| `open(params: OpenParams) → pact_id` (`OpenParams` = buyer, seller, cap, nonce, condition_hash, meter, silence, verdict_deadline, settle_deadline) | buyer | `cap > 0`; `buyer ≠ seller`; `now < verdict_deadline ≤ settle_deadline ≤ now + max_pact_ledgers`; `pact_id` unused; **metered pacts rejected (`IsMetered`) until P7-01** | `token.transfer(buyer → pact, cap)`; snapshot `verifier`; TTL extended past `settle_deadline + GRACE` → `Funded` |
+| `record_verdict(pact_id, att, sig)` | none (signature is the authority) | `Funded`; not metered; `now ≤ verdict_deadline`; `att.pact_id`/`condition_hash` match; `opened_ledger ≤ att.issued_ledger ≤ now`; ALLOW: `0 < att.amount ≤ cap`, DENY: `att.amount = 0`; `ed25519_verify(pact.verifier, msg, sig)` (traps on a bad signature) | ALLOW → `Allowed`, `allowed_amount = att.amount`; DENY → `Denied` |
 | `settle(pact_id, actual)` | seller | `0 < actual ≤ allowed_amount`, `now ≤ settle_deadline`, and either `Allowed`, or `Funded ∧ not metered ∧ silence = Pay ∧ now > verdict_deadline` (then `allowed_amount = cap`) | `actual` → seller, `cap − actual` → buyer → `Settled` |
 | `close_meter(pact_id, units, sig)` | seller | `Funded`; metered; `now ≤ settle_deadline`; `ed25519_verify(meter_key, usage msg, sig)`; `units × unit_price ≤ cap` | Pays `units × unit_price`, returns the rest → `Settled` |
 | `release(pact_id)` | none | `Denied`; **or** `Funded ∧ not metered ∧ silence = Refund ∧ now > verdict_deadline`; **or** `(Funded ∨ Allowed) ∧ now > settle_deadline` | Full escrow → buyer → `Released` |
