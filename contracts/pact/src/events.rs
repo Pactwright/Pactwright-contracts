@@ -45,8 +45,6 @@ pub struct Settled {
     pub to_buyer: i128,
 }
 
-/// Emitted by `close_meter` (release v1, ROADMAP P7-01).
-#[allow(dead_code)]
 #[contractevent(topics = ["pact", "meter_closed"])]
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MeterClosed {

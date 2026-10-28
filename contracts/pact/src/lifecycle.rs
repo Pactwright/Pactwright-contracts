@@ -33,9 +33,6 @@ pub(crate) fn open(env: &Env, params: OpenParams) -> Result<BytesN<32>, Error> {
         if terms.unit_price <= 0 {
             return Err(Error::InvalidAmount);
         }
-        // Metered pacts have no settlement path until close_meter ships (ROADMAP P7-01).
-        // Remove this guard in P7-01 and re-enable the tests marked "ROADMAP P7-01".
-        return Err(Error::IsMetered);
     }
 
     let now = env.ledger().sequence();

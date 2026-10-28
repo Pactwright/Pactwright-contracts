@@ -251,7 +251,14 @@ Priority: **P0** = MVP · **P1** = v1 · **P2** = later.
 2. Can BookerBob group admin be a contract, or must the seller hold the key? (P2)
 3. Will Witness publish `@witness/core`, or do we keep vendoring it?
 4. Who operates mainnet verifiers?
-5. Does `RefundVault` support a refund-only key role, or do sellers need KMS for the merchant key?
+5. ~~Does `RefundVault` support a refund-only key role, or do sellers need KMS for the merchant key?~~
+   **Answered (F-12):** no refund-only role exists. In Accensa v0.2.0 (vendored) and on `main`
+   (`0347417`), `refund` and `claim_batch` call `merchant.require_auth()`
+   (`contracts/refund-vault/src/lib.rs:1351`, `:1407` on `main`), and so do the oracle/policy calls
+   (`execute_policy` `:1620`, `commit` `:1779`, `add_oracle` `:1900`). **Decision for P7-15:** the
+   seller's vault merchant should be a Soroban smart account whose middleware key may sign only
+   `RefundVault.refund`; until then the merchant key lives in KMS (P7-08). A delegated refund role
+   in Accensa would remove the need for the smart account.
 6. What are the right default deadline lengths per condition kind?
 
 ## 13. Design review outcome (2026-10-28)

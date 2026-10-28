@@ -1,5 +1,6 @@
 //! Every entrypoint × every reachable error (ROADMAP C-09).
 
+use ed25519_dalek::Signer;
 use soroban_sdk::BytesN;
 
 use super::*;
@@ -62,13 +63,14 @@ fn open_rejects_non_positive_unit_price() {
 }
 
 #[test]
-fn open_rejects_metered_until_p7_01() {
+fn open_accepts_metered_pact() {
     let f = Fixture::new();
-    assert_eq!(
-        f.pact.try_open(&f.metered_params(1)),
-        Err(Ok(Error::IsMetered))
-    );
-    assert_eq!(f.escrow_balance(), 0);
+    let pact_id = f.pact.open(&f.metered_params(1));
+    assert_eq!(f.escrow_balance(), CAP);
+    assert!(matches!(
+        f.pact.get_pact(&pact_id).meter,
+        Metering::Units(_)
+    ));
 }
 
 #[test]
@@ -243,7 +245,6 @@ fn record_verdict_rejects_tampered_attestation() {
 }
 
 #[test]
-#[ignore = "ROADMAP P7-01: metering"]
 fn record_verdict_rejects_metered_pact() {
     let f = Fixture::new();
     let pact_id = f.pact.open(&f.metered_params(1));
@@ -320,7 +321,6 @@ fn settle_rejects_denied_pact() {
 }
 
 #[test]
-#[ignore = "ROADMAP P7-01: metering"]
 fn settle_rejects_metered_pact() {
     let f = Fixture::new();
     let pact_id = f.pact.open(&f.metered_params(1));
@@ -441,13 +441,112 @@ fn extend_pact_ttl_works_until_terminal() {
     );
 }
 
+// ---------------------------------------------------------------- close_meter (P7-01)
+
 #[test]
-#[ignore = "ROADMAP P7-01: metering"]
-fn close_meter_is_not_available_yet() {
-    // Metering lands in release v1 (ROADMAP P7-01); until then close_meter must not settle.
+fn close_meter_pays_units_and_returns_rest() {
     let f = Fixture::new();
     let pact_id = f.pact.open(&f.metered_params(1));
-    let signature = BytesN::from_array(&f.env, &[0; 64]);
-    assert!(f.pact.try_close_meter(&pact_id, &1, &signature).is_err());
+    let units = 2_500u32; // × unit_price 1_000 = 2_500_000
+    f.pact
+        .close_meter(&pact_id, &units, &f.sign_usage(&pact_id, units));
+
+    assert_eq!(f.balance(&f.seller), 2_500_000);
+    assert_eq!(f.balance(&f.buyer), FUNDS - 2_500_000);
+    assert_eq!(f.escrow_balance(), 0);
+    let pact = f.pact.get_pact(&pact_id);
+    assert_eq!(pact.state, PactState::Settled);
+    assert_eq!(pact.paid_to_seller + pact.returned_to_buyer, CAP);
+}
+
+#[test]
+fn close_meter_with_zero_units_refunds_everything() {
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    f.pact.close_meter(&pact_id, &0, &f.sign_usage(&pact_id, 0));
+    assert_eq!(f.balance(&f.buyer), FUNDS);
+}
+
+#[test]
+fn close_meter_requires_seller_auth() {
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    f.pact.close_meter(&pact_id, &1, &f.sign_usage(&pact_id, 1));
+    assert_eq!(f.env.auths()[0].0, f.seller);
+}
+
+#[test]
+fn close_meter_rejects_bad_signature() {
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    let wrong_units = f.sign_usage(&pact_id, 5);
+    assert!(f.pact.try_close_meter(&pact_id, &6, &wrong_units).is_err());
+    let random = BytesN::from_array(&f.env, &[7; 64]);
+    assert!(f.pact.try_close_meter(&pact_id, &5, &random).is_err());
     assert_eq!(f.escrow_balance(), CAP);
+}
+
+#[test]
+fn close_meter_rejects_usage_above_cap() {
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    let units = (CAP / 1_000) as u32 + 1;
+    assert_eq!(
+        f.pact
+            .try_close_meter(&pact_id, &units, &f.sign_usage(&pact_id, units)),
+        Err(Ok(Error::InvalidAmount))
+    );
+}
+
+#[test]
+fn close_meter_rejects_verdict_pact() {
+    let f = Fixture::new();
+    let pact_id = f.open(1);
+    assert_eq!(
+        f.pact
+            .try_close_meter(&pact_id, &1, &f.sign_usage(&pact_id, 1)),
+        Err(Ok(Error::NotMetered))
+    );
+}
+
+#[test]
+fn close_meter_rejects_terminal_pact() {
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    f.pact.close_meter(&pact_id, &1, &f.sign_usage(&pact_id, 1));
+    assert_eq!(
+        f.pact
+            .try_close_meter(&pact_id, &2, &f.sign_usage(&pact_id, 2)),
+        Err(Ok(Error::InvalidState))
+    );
+}
+
+#[test]
+fn close_meter_rejects_after_settle_deadline() {
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    f.advance_to(START_LEDGER + SETTLE_LEDGERS + 1);
+    assert_eq!(
+        f.pact
+            .try_close_meter(&pact_id, &1, &f.sign_usage(&pact_id, 1)),
+        Err(Ok(Error::SettleWindowClosed))
+    );
+}
+
+#[test]
+fn usage_voucher_vector_signature_verifies_on_chain() {
+    // The usage_voucher.json signer (seed 9) is the fixture's meter key; a voucher signed the
+    // way the vectors describe settles on-chain.
+    let f = Fixture::new();
+    let pact_id = f.pact.open(&f.metered_params(1));
+    let digest = hashing::usage_message(
+        &f.env,
+        &crate::UsageVoucher {
+            pact_id: pact_id.clone(),
+            units: 12,
+        },
+    );
+    let signature = BytesN::from_array(&f.env, &signing_key(9).sign(&digest.to_array()).to_bytes());
+    f.pact.close_meter(&pact_id, &12, &signature);
+    assert_eq!(f.balance(&f.seller), 12_000);
 }

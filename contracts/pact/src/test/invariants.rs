@@ -173,23 +173,19 @@ fn invariant_7_deadlines_enforced() {
 }
 
 /// 8. Metered pacts never accept a verdict; verdict pacts never accept `close_meter`.
-///
-/// Until P7-01, metered pacts cannot be opened at all, so only the verdict side applies.
 #[test]
 fn invariant_8_metered_and_verdict_paths_disjoint() {
     let f = Fixture::new();
-    assert_eq!(
-        f.pact.try_open(&f.metered_params(1)),
-        Err(Ok(Error::IsMetered))
-    );
     let verdict_pact = f.open(2);
     let zero = BytesN::from_array(&f.env, &[0; 64]);
-    assert!(f.pact.try_close_meter(&verdict_pact, &1, &zero).is_err());
+    assert_eq!(
+        f.pact.try_close_meter(&verdict_pact, &1, &zero),
+        Err(Ok(Error::NotMetered))
+    );
 }
 
-/// 8 (metered side). Re-enable with metering.
+/// 8 (metered side).
 #[test]
-#[ignore = "ROADMAP P7-01: metering"]
 fn invariant_8_metered_pact_rejects_verdict_and_settle() {
     let f = Fixture::new();
     let metered = f.pact.open(&f.metered_params(1));

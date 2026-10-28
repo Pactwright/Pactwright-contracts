@@ -195,7 +195,7 @@ All domain prefixes differ from each other and from Witness's `conditional-relea
 |---|---|---|---|
 | `__constructor(admin, token, verifier, max_pact_ledgers)` | — | — | Stores `Config` |
 | `set_verifier(key)` | admin | — | Rotates the key **for new pacts only** (ADR-014) |
-| `open(params: OpenParams) → pact_id` (`OpenParams` = buyer, seller, cap, nonce, condition_hash, meter, silence, verdict_deadline, settle_deadline) | buyer | `cap > 0`; `buyer ≠ seller`; `now < verdict_deadline ≤ settle_deadline ≤ now + max_pact_ledgers`; `pact_id` unused; **metered pacts rejected (`IsMetered`) until P7-01** | `token.transfer(buyer → pact, cap)`; snapshot `verifier`; TTL extended past `settle_deadline + GRACE` → `Funded` |
+| `open(params: OpenParams) → pact_id` (`OpenParams` = buyer, seller, cap, nonce, condition_hash, meter, silence, verdict_deadline, settle_deadline) | buyer | `cap > 0`; `buyer ≠ seller`; `now < verdict_deadline ≤ settle_deadline ≤ now + max_pact_ledgers`; `pact_id` unused; metered: `unit_price > 0` | `token.transfer(buyer → pact, cap)`; snapshot `verifier`; TTL extended past `settle_deadline + GRACE` → `Funded` |
 | `record_verdict(pact_id, att, sig)` | none (signature is the authority) | `Funded`; not metered; `now ≤ verdict_deadline`; `att.pact_id`/`condition_hash` match; `opened_ledger ≤ att.issued_ledger ≤ now`; ALLOW: `0 < att.amount ≤ cap`, DENY: `att.amount = 0`; `ed25519_verify(pact.verifier, msg, sig)` (traps on a bad signature) | ALLOW → `Allowed`, `allowed_amount = att.amount`; DENY → `Denied` |
 | `settle(pact_id, actual)` | seller | `0 < actual ≤ allowed_amount`, `now ≤ settle_deadline`, and either `Allowed`, or `Funded ∧ not metered ∧ silence = Pay ∧ now > verdict_deadline` (then `allowed_amount = cap`) | `actual` → seller, `cap − actual` → buyer → `Settled` |
 | `close_meter(pact_id, units, sig)` | seller | `Funded`; metered; `now ≤ settle_deadline`; `ed25519_verify(meter_key, usage msg, sig)`; `units × unit_price ≤ cap` | Pays `units × unit_price`, returns the rest → `Settled` |
@@ -364,6 +364,7 @@ USDC trustline at startup. Keys come from KMS (B13).
 
 ### 6.5 Verifier service
 - `POST /v1/verdicts`: verify the delivery receipt → hash-check evidence → model reads into a strict zod schema (provider and model pinned in config, explicit reasoning effort where the provider supports it, structured output; no sampling parameters such as `temperature`) → **deterministic rules decide** (`rules/<condition kind>.ts`) → Witness verdict-v1 envelope (model ID, effort, hash of raw model output) → for M2, sign one `VerdictAttestation` and submit it via `/pact/submit`.
+- **Rules:** each condition kind has a pure rule set; criteria use Witness reason codes and Witness's `decide()` makes the decision. Witness's REVIEW outcome becomes DENY (no human review in the MVP). `document.translation` pays pro rata when fewer pages than `minPages` arrive (non-mandatory `ITEMS_MISMATCH`).
 - **A model refusal yields no verdict:** the pact falls back to its silence policy (escrow) or no refund decision (M0) instead of a guess.
 - **At most one attestation per `pact_id`** (unique key in its store). Disputes create new envelopes, never new attestations.
 - `GET /v1/envelopes/:sha256`, `GET /health` (public key).

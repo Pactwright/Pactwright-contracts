@@ -75,7 +75,6 @@ pub(crate) fn verdict_message(env: &Env, attestation: &VerdictAttestation) -> By
 }
 
 /// `sha256("pactwright-usage-v1:" ‖ xdr(voucher))` — the bytes the buyer's meter key signs.
-#[allow(dead_code)] // used by close_meter (ROADMAP P7-01)
 pub(crate) fn usage_message(env: &Env, voucher: &UsageVoucher) -> BytesN<32> {
     domain_digest(env, USAGE_DOMAIN, &voucher.clone().to_xdr(env))
 }

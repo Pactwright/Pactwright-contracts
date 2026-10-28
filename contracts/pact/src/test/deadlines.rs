@@ -110,7 +110,6 @@ fn allowed_pact_releasable_after_settle_deadline() {
 }
 
 #[test]
-#[ignore = "ROADMAP P7-01: metering"]
 fn metered_pact_releasable_only_after_settle_deadline() {
     let f = Fixture::new();
     let pact_id = f.pact.open(&f.metered_params(1));

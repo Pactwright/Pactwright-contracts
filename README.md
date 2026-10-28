@@ -28,5 +28,10 @@ cargo test            # placeholder tests are ignored until their ROADMAP task l
 stellar contract build
 ```
 
+## Testnet
+
+`pact` and Pactwright's `ReceiptAnchor` are live on Stellar testnet; addresses and provenance are in
+[`DEPLOYMENTS.md`](DEPLOYMENTS.md).
+
 ## Contributing
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md). **Every PR updates [`ROADMAP.md`](ROADMAP.md).**
