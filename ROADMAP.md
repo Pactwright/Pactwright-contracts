@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Last updated | 2026-10-28 |
-| Progress | **27 / 37 tasks (73%)** |
+| Progress | **29 / 37 tasks (78%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -15,8 +15,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 
 | Section | Tasks | Done | % |
 |---|---|---|---|
-| Foundations (this repo) | 9 | 5 | 56% |
-| Phase 1 — Contracts MVP | 21 | 20 | 95% |
+| Foundations (this repo) | 9 | 6 | 67% |
+| Phase 1 — Contracts MVP | 21 | 21 | 100% |
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
 | Phase 8 — Audit and mainnet | 5 | 0 | 0% |
@@ -27,10 +27,10 @@ Repo-level setup tasks.
 
 - [x] **F-02** Create the 3 repos with licenses (contracts MIT, kit Apache-2.0, studio MIT), README skeleton, `NOTICE` crediting all 7 projects — core · T · F-01 · project_structure §6 (pushed, 2026-10-28)
 - [x] **F-03** Add `ROADMAP.md`, `AGENTS.md`, `CONTRIBUTING.md` (with the roadmap rule) and copies of the 4 design docs to each repo — core · T · F-02 · Done when: every repo states the roadmap rule. (pushed, 2026-10-28)
-- [~] **F-04** Labels (`Stellar Wave`, `complexity:*`, `area:*`, `good first issue`, `core-team-only`), issue template, PR template with a "ROADMAP.md updated" checkbox — core · T · F-02 · project_structure §7
+- [x] **F-04** Labels (`Stellar Wave`, `complexity:*`, `area:*`, `good first issue`, `core-team-only`), issue template, PR template with a "ROADMAP.md updated" checkbox — core · T · F-02 · project_structure §7 (#58, 2026-10-28)
 - [~] **F-05** `roadmap-check` CI workflow in all 3 repos: fails a PR that doesn't modify `ROADMAP.md` — core · M · F-02 · Done when: a PR without a roadmap change fails CI.
 - [~] **F-06** `CODEOWNERS` for core-team-only paths — core · T · F-02 · project_structure §7
-- [ ] **F-07** OpenSSF Scorecard, Dependabot, branch protection (CI + review required) — core · T · F-02
+- [~] **F-07** OpenSSF Scorecard, Dependabot, branch protection (CI + review required) — core · T · F-02
 - [x] **F-13** Write ADR files ADR-001…ADR-015 into `pactwright-contracts/docs/adr/` — wave · M · F-02 · ARCH §15 (#52, 2026-10-28)
 - [x] **F-11** Testnet keys: deployer, sponsor (fees + reserves), verifier, anchorer; stored in a secrets manager — core · M · — · ARCH §9 (#55, 2026-10-28)
 - [x] **F-12** Answer Q5: does `RefundVault` support a refund-only key? Read `refund-vault` source and record the answer in PRD §12 — core · M · — · Q5 (#55, 2026-10-28)
@@ -59,7 +59,7 @@ The `pact` escrow contract on testnet, tested and cost-bounded.
 - [x] **C-18** `release.yml`: publish `pact.wasm` + hash, TS bindings, test-vectors as release assets — wave · M · C-17 (#55, 2026-10-28)
 - [x] **C-19** `EVENTS.md`, `INVARIANTS.md`, `BENCHMARKS.md`, `SECURITY_MODEL.md` — wave · M · C-12 (#57, 2026-10-28)
 - [x] **C-20** Deploy Pactwright's own `ReceiptAnchor` instance on testnet (admin = anchorer key) — core · M · C-14, F-11 (#55, 2026-10-28)
-- [ ] **C-21** Tier B testnet baselines: scripted stateful flow (test token SAC, open → signed verdict → settle/release/close_meter as real transactions), record network CPU, read/write bytes, entries and fees in `budget.toml` + BENCHMARKS.md, enable `budget-report.yml` — core · H · C-12, C-17, F-11 · ARCH §10 · Done when: every entrypoint has a network-measured baseline and the post-merge job runs.
+- [x] **C-21** Tier B testnet baselines: scripted stateful flow (test token SAC, open → signed verdict → settle/release/close_meter as real transactions), record network CPU, read/write bytes, entries and fees in `budget.toml` + BENCHMARKS.md, enable `budget-report.yml` — core · H · C-12, C-17, F-11 · ARCH §10 · Done when: every entrypoint has a network-measured baseline and the post-merge job runs. (#58, 2026-10-28)
 
 ## Phase 7 — v1
 
@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-28 | #58 (+ Kit#66, studio#22) | C-21, F-04 → `[x]`; F-06, F-07 → `[~]` | Tier B testnet benchmark with real transactions + `--check` limits, `tools/pact-sign`; label scheme unified; `@Pactwright/maintainers` + `@Pactwright/core` teams and CODEOWNERS; Scorecard; anchorer key rotated after exposure (ReceiptAnchor `CAEO5GBC…LNJ2`). |
 | 2026-10-28 | #57 | C-12, C-19 → `[x]`; C-21 added (#56) | Tier A budget tests on all 5 entrypoints in WASM mode (limits measured × 1.15; worst-case partial settle); EVENTS/INVARIANTS/BENCHMARKS/SECURITY_MODEL docs; testnet Tier B split into C-21. Release `v0.1.0-rc.1` published; CI-built WASM hash = deployed hash. 86 tests, 0 ignored. |
 | 2026-10-28 | #55 | P7-01, F-11, C-17, C-20, C-18, F-12, XC-04 → `[x]` | `close_meter` (signed usage vouchers); testnet identities; `pact` (`CDUXJJUN…MFEV6`) and own ReceiptAnchor (`CA2VU3DR…ZGZ3ITX`) deployed on testnet, rebuild matches the deployed hash; deploy/bindings/release scripts + release workflow; refund-key answer (smart-account merchant, KMS meanwhile); network-upgrade runbook. 80 tests. |
 | 2026-10-28 | #52 | C-13, C-14, C-15, C-16, F-13 → `[x]`; C-01…C-11 → `[x]` (#3) | Vendored Accensa v0.2.0 WASMs with hash checks; integration tests (receipt verifies in ReceiptAnchor, M0 refund once per pact_id); 3 bolero property tests; cost-lint Action pinned; ADR-001…015 written. Docs aligned with v0.2.0 (no shards; refund needs merchant auth). |
