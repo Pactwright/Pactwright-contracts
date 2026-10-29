@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| Last updated | 2026-10-28 |
+| Last updated | 2026-10-29 |
 | Progress | **31 / 37 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-29 | #62 | — (L-01, master) | README links all 7 MVP scenarios run on the main testnet deployment by Pactwright-Kit's testnet e2e (14 real transactions; M2 rows are calls to this contract). |
 | 2026-10-29 | #61 | — | Add canonical JSON condition_hash test vectors matching Witness for C-18 / K-03, and escape double quotes in nonce vector JSON generation. |
 | 2026-10-28 | #60 | — | Logo tagline set to a fixed width so it no longer clips in GitHub's fallback font (the fix missed #59's merge); square mark `brand/pactwright-mark.svg`/`.png` for the org avatar. |
 | 2026-10-28 | #59 | F-06, F-07 → `[x]` | README rewritten to explain the project: why it exists, plain-language glossary, purchase walkthrough (sequence diagram), state machine, M0 vs M2, roles and trust, failure scenarios, API and error-code reference, FAQ, and a full License section (MIT terms, every third-party license and where it ends up, sister-repo licenses). Logo assets from the unmerged #58 README commit. CODEOWNERS, Scorecard and branch protection are live on all 3 repos; `bench-testnet` workflow passes with the repo secrets. |
