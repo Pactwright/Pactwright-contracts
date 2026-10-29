@@ -79,8 +79,9 @@ fn nonce_vectors() {
         .iter()
         .map(|key| {
             let nonce = hashing::nonce_from_key(&env, &Bytes::from_slice(&env, key.as_bytes()));
+            let escaped = format!("{key:?}").replace('"', "\\\"");
             format!(
-                "{{\"name\": \"key {key:?}\", \"input\": {{\"idempotency_key\": \"{key}\"}}, \"output\": \"{nonce}\"}}"
+                "{{\"name\": \"key {escaped}\", \"input\": {{\"idempotency_key\": \"{key}\"}}, \"output\": \"{nonce}\"}}"
             )
         })
         .collect();
