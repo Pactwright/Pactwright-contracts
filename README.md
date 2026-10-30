@@ -20,6 +20,7 @@
 </p>
 
 <p align="center">
+  <a href="https://pactwright.github.io/docs/"><b>Documentation</b></a> ·
   <a href="#in-60-seconds-for-reviewers"><b>In 60 seconds</b></a> ·
   <a href="#a-purchase-step-by-step"><b>A purchase, step by step</b></a> ·
   <a href="#verify-it-yourself"><b>Verify it yourself</b></a> ·
@@ -45,6 +46,7 @@
 | Payment token | USDC ([`CBIELTK6…DAMA`](https://stellar.expert/explorer/testnet/contract/CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA), Circle testnet) |
 | Measured cost | [docs/BENCHMARKS.md](docs/BENCHMARKS.md): local and real-transaction numbers per call |
 | Trust model | [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) |
+| Documentation | [pactwright.github.io/docs](https://pactwright.github.io/docs/), including the [contract API reference](https://pactwright.github.io/docs/reference/contract/) |
 | Design | [PRD](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [15 ADRs](docs/adr/) |
 | License | [MIT](#license), with every third-party license listed |
 
@@ -333,8 +335,11 @@ The Kit's own hashing produced each `pact_id`, and the contract accepted the Kit
 |  |  | release after the verdict deadline (silence = Refund) | [`e62aff4d…`](https://stellar.expert/explorer/testnet/tx/e62aff4d291eff2b76ba282aae987d82c6ca91e1681e7944d96abb1f3739f833) |
 | **Dispute refund** | dispute-1: 2 of 4 pages, 0.5 refunded | RefundVault.refund (dispute-1) | [`a191a000…`](https://stellar.expert/explorer/testnet/tx/a191a000f7920f2fff9839bbccceeeca35c82fce29a5e46510fd3db1bcdf2ff0) |
 
-The model's reading of each delivery was a fixture (the rules decide), and payments were direct, because
-the facilitator's x402 `pact` scheme isn't built yet.
+The model's reading of each delivery was a fixture (the rules decide), and the payments in this run
+were direct. The facilitator's x402 `pact` scheme has since been merged and hosted on testnet; the
+Kit's testnet run now also opens a pact through it ([evidence](https://github.com/Pactwright/Pactwright-Kit#testnet-evidence)),
+and a verdict from the hosted verifier, with its real model, has been accepted by this contract
+([evidence](https://github.com/Pactwright/Pactwright-Kit#the-hosted-verifier)).
 
 ## Stellar, specifically
 
