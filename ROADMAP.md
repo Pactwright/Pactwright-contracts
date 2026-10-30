@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| Last updated | 2026-10-29 |
+| Last updated | 2026-10-30 |
 | Progress | **31 / 37 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-30 | deps | — | Test and tooling dependencies: ed25519-dalek 2.2 → 3.0 and stellar-strkey 0.0.16 → 1.0 (replaces Dependabot #53 and #54, which conflicted). strkey 1.0 redacts private keys by default, so pact-sign's vector test encodes the seed through `Unredacted`. Test-only: the contract WASM hash is unchanged (748b5dbc…5d1a4). |
 | 2026-10-29 | #62 | — (L-01, master) | README links all 7 MVP scenarios run on the main testnet deployment by Pactwright-Kit's testnet e2e (14 real transactions; M2 rows are calls to this contract). |
 | 2026-10-29 | #61 | — | Add canonical JSON condition_hash test vectors matching Witness for C-18 / K-03, and escape double quotes in nonce vector JSON generation. |
 | 2026-10-28 | #60 | — | Logo tagline set to a fixed width so it no longer clips in GitHub's fallback font (the fix missed #59's merge); square mark `brand/pactwright-mark.svg`/`.png` for the org avatar. |

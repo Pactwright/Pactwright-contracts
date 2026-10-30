@@ -14,7 +14,8 @@ fn vectors(name: &str) -> Vec<serde_like::Case> {
 
 /// Seed strkey (`S…`) for a raw 32-byte seed, as the vectors' signers use `[seed; 32]`.
 fn secret(seed: u8) -> String {
-    stellar_strkey::ed25519::PrivateKey([seed; 32])
+    // strkey 1.0 redacts private keys by default; encoding one has to be asked for explicitly.
+    stellar_strkey::Unredacted(&stellar_strkey::ed25519::PrivateKey([seed; 32]))
         .to_string()
         .as_str()
         .to_owned()
