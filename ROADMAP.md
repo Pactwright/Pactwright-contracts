@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-30 | README | — | README: links to the docs site and the contract API reference; the stale note that the facilitator's pact scheme 'isn't built yet' now says it's merged and hosted, and links the hosted verifier's on-chain verdict. |
 | 2026-10-30 | deps | — | Test and tooling dependencies: ed25519-dalek 2.2 → 3.0 and stellar-strkey 0.0.16 → 1.0 (replaces Dependabot #53 and #54, which conflicted). strkey 1.0 redacts private keys by default, so pact-sign's vector test encodes the seed through `Unredacted`. Test-only: the contract WASM hash is unchanged (748b5dbc…5d1a4). |
 | 2026-10-29 | #62 | — (L-01, master) | README links all 7 MVP scenarios run on the main testnet deployment by Pactwright-Kit's testnet e2e (14 real transactions; M2 rows are calls to this contract). |
 | 2026-10-29 | #61 | — | Add canonical JSON condition_hash test vectors matching Witness for C-18 / K-03, and escape double quotes in nonce vector JSON generation. |
