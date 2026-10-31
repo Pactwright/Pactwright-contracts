@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Last updated | 2026-10-31 |
-| Progress | **31 / 37 tasks (84%)** |
+| Progress | **32 / 37 tasks (86%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -15,7 +15,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 
 | Section | Tasks | Done | % |
 |---|---|---|---|
-| Foundations (this repo) | 9 | 8 | 89% |
+| Foundations (this repo) | 9 | 9 | 100% |
 | Phase 1 — Contracts MVP | 21 | 21 | 100% |
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
@@ -28,7 +28,7 @@ Repo-level setup tasks.
 - [x] **F-02** Create the 3 repos with licenses (contracts MIT, kit Apache-2.0, studio MIT), README skeleton, `NOTICE` crediting all 7 projects — core · T · F-01 · project_structure §6 (pushed, 2026-10-28)
 - [x] **F-03** Add `ROADMAP.md`, `AGENTS.md`, `CONTRIBUTING.md` (with the roadmap rule) and copies of the 4 design docs to each repo — core · T · F-02 · Done when: every repo states the roadmap rule. (pushed, 2026-10-28)
 - [x] **F-04** Labels (`Stellar Wave`, `complexity:*`, `area:*`, `good first issue`, `core-team-only`), issue template, PR template with a "ROADMAP.md updated" checkbox — core · T · F-02 · project_structure §7 (#58, 2026-10-28)
-- [~] **F-05** `roadmap-check` CI workflow in all 3 repos: fails a PR that doesn't modify `ROADMAP.md` — core · M · F-02 · Done when: a PR without a roadmap change fails CI.
+- [x] **F-05** `roadmap-check` CI workflow in all 3 repos: fails a PR that doesn't modify `ROADMAP.md` — core · M · F-02 · Done when: a PR without a roadmap change fails CI. (**observed here 2026-10-31**: throwaway PR #67 carried an empty commit touching no files and the `roadmap` job failed in 5 s — [run 41193227111](https://github.com/Pactwright/Pactwright-contracts/actions/runs/41193227111). Closed unmerged on purpose.)
 - [x] **F-06** `CODEOWNERS` for core-team-only paths — core · T · F-02 · project_structure §7 (#59, 2026-10-28)
 - [x] **F-07** OpenSSF Scorecard, Dependabot, branch protection (CI + review required) — core · T · F-02 (#59, 2026-10-28)
 - [x] **F-13** Write ADR files ADR-001…ADR-015 into `pactwright-contracts/docs/adr/` — wave · M · F-02 · ARCH §15 (#52, 2026-10-28)
@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-31 | — | F-05 `[x]` | Proved the gate rather than inferring it from the workflow file: opened throwaway PR #67 with a deliberately empty commit (touches no files), watched `roadmap` fail in 5 s on run 41193227111, then closed it unmerged and deleted the branch. That satisfies the task's own Done-when here, so F-05 closes and this repo reads 32/37 (86%), Foundations 9/9. Found while running the XC-12 roadmap-sync audit, which also reopened `S-10` and `XC-03` in the master and closed `F-04` in Studio on live label/template evidence.
 | 2026-10-31 | docs/tollcraft-shape | — (README) | Matched the reference README exactly: dropped the `## Contents` block (the Tollcraft README has none), and replaced the socials placeholder with the real community links, Discord (`discord.gg/4WFU6fwPe`) and Telegram (`t.me/Pactwright`). No other content changed. |
 | 2026-10-30 | docs/readme-template | — | README restructured to the reference (Tollcraft soroban-budget-assert) section architecture: banner with CI/license/Scorecard badges only, Contents, Overview + Architecture + "Invariants, vectors and budget tests", Benchmarks, "Supported Versions & Compatibility" (manifest pins, CI gates by trigger, compatibility matrix), Quick Start, Measurements, Community & Maintainers, Contributing, License. All evidence kept: mermaid diagrams, API/error-code/invariant tables, both cost tiers, the 5 bench and 14 MVP transactions. Dropped: the stale-badge row (90 tests, testnet, release, ≤2.1% CPU) — the test count now sits in the body with its 2026-10-30 measurement date; the ≤2.1% figure (BENCHMARKS.md states under 2%) and the claim that cargo-deny runs in CI (no workflow runs it). |
 | 2026-10-30 | README | — | README: links to the docs site and the contract API reference; the stale note that the facilitator's pact scheme 'isn't built yet' now says it's merged and hosted, and links the hosted verifier's on-chain verdict. |
