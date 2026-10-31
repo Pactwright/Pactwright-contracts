@@ -30,10 +30,13 @@
 **Metered pacts** are M2 pacts with `MeterTerms`. They skip the verifier: the buyer's
 signed cumulative usage voucher is the proof (ADR-010).
 
-**Deferred:** M1 (allowance via Accensa `upto-authorization`). Two concurrent M1 pacts from
-one buyer overwrite each other's SEP-41 allowance, settlement needs the buyer to co-sign,
-and funds are not locked. M1 returns only when Accensa's ADR-002 resolves the `upto`
-construction (ADR-002 here, superseded).
+**Out of scope:** M1 (allowance via Accensa `upto-authorization`) — **ADR-017**. Two concurrent
+M1 pacts from one buyer overwrite each other's SEP-41 allowance, settlement needs the buyer to
+co-sign, and funds are not locked (ADR-001, and ADR-002 here is superseded). Accensa's own
+ADR-002 is still `Status: DRAFT` with four structural questions open, so nothing can be built on
+it; metered purchases are served by M2 + `MeterTerms` instead. M1 is reconsidered only when
+Accensa's ADR-002 reads **Accepted** *and* its Stellar `upto` scheme spec is adopted upstream, and
+that needs a new ADR here, not a re-opening of ADR-017.
 
 ## 3. System context
 
@@ -616,6 +619,8 @@ JSON logs with `pact_id`; metrics per stage (latency, failures, verdict mix, spo
 | ADR-013 | One receipt leaf per terminal transition | Accepted (v0.2) |
 | ADR-014 | Single verifier key in `Config`, snapshotted per pact | Accepted (v0.2), replaces registry |
 | ADR-015 | Hashing and test vectors owned by `pactwright-contracts` | Accepted (v0.2) |
+| ADR-016 | Facilitator `pact` scheme and `/pact/submit` (repo-local copy in `Pactwright-Kit/docs/adr/`, the same decision as ADR-004) | Accepted — duplicate number, tracked for reconciliation |
+| ADR-017 | M1 (`upto`) stays out of scope; ROADMAP P9-06 dropped with a re-open trigger | Accepted (2026-10-31) |
 
 ## 16. Design review log (v0.1 → v0.2)
 

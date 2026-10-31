@@ -2,12 +2,14 @@
 
 > **⚠ Every contribution updates this file:** task status, progress counts and one
 > Update log line. CI (`roadmap-check`) fails PRs that don't. Rules: [`AGENTS.md`](AGENTS.md) §1.
-> Task IDs are global; the master roadmap lives in the Pactwright workspace and is synced weekly (XC-12).
+> Task IDs are global; the master roadmap is
+> [`pactwright.github.io/ROADMAP.md`](https://github.com/Pactwright/pactwright.github.io/blob/main/ROADMAP.md),
+> and CI there (`roadmap-sync`) fails if this file disagrees with it about any status or ID (XC-12).
 
 | | |
 |---|---|
 | Last updated | 2026-10-31 |
-| Progress | **32 / 37 tasks (86%)** |
+| Progress | **32 / 38 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -20,6 +22,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
 | Phase 8 — Audit and mainnet | 5 | 0 | 0% |
+| Phase 9 — v2 | 1 | 0 | 0% |
 
 ## Foundations (this repo)
 
@@ -77,6 +80,12 @@ Metering.
 - [ ] **P8-06** Pubnet rent/TTL measurement with `budget-report`; re-baseline budgets — wave · M · P8-03
 - [ ] **P8-08** Hackathon goal 1: first M2 pact settled on mainnet — core · T · P8-07
 
+## Phase 9 — v2
+
+What this repo owns of the v2 scope.
+
+- [-] **P9-06** M1 (`upto`): dropped out of scope, with a re-open trigger — core · H · — · ADR-002, ADR-017 · Done when: ADR-017 exists and the roadmap says `[-]`. (**ADR-017, 2026-10-31**: Accensa's ADR-002 is still `Status: DRAFT` with four structural questions open and its Stellar `upto` scheme spec not yet validated; metered purchases are covered by M2 + `MeterTerms` instead. Re-open needs a *new* ADR, once Accensa's ADR-002 reads Accepted and its scheme spec is adopted upstream.)
+
 ## Cross-cutting (this repo)
 
 Ongoing work whose issues live in this repo.
@@ -87,6 +96,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-31 | — | P9-06 `[-]`, ADR-017 | **ADR-017** closes the last unknown in the v2 phase instead of leaving `P9-06` as an open gate. Read the upstream state rather than assuming it: `accensa/accensa-contracts` `docs/ADR-002-upto-scheme.md` is still `Status: DRAFT` ("Do not cite this document as a design that works"), 4 of its 6 pre-proposal questions are open (§6.1 wire format, §6.2 one auth entry for `authorize`+nested `approve`, §6.4 sequence contention, §6.6 who submits), and `scheme_upto_stellar.md` says "not yet validated, open proposal" — while `contracts/upto-authorization` and issues #64/#65/#66 are already built and closed, so the implementation is ahead of the specification. Decision: two modes only (M0, M2), no `upto` surface in our repos (verified: `upto` in code is only the unrelated `PrunedUpTo` ledger symbol in test snapshots), metered use stays served by M2 + `MeterTerms` (P7-01…P7-04), and a re-open trigger that needs a new ADR. `PRD.md` (non-goals, v2 row, source-project table, §13 log), `ARCHITECTURE.md` (the mode paragraph + the ADR index) and `ARCHITECTURE_ESSENTIALS.md` §3 all point at ADR-017; the master moves `P9-06` to `[-]` and its coverage row to "Dropped — ADR-017". Also found, and deliberately not fixed here: `Pactwright-Kit/docs/adr/` carries a local **ADR-016** that re-states ADR-004's decision under a colliding number, so this repo's new ADR is **017** and the duplicate is raised as a Kit issue. 32/38 (84%). |
 | 2026-10-31 | — | F-05 `[x]` | Proved the gate rather than inferring it from the workflow file: opened throwaway PR #67 with a deliberately empty commit (touches no files), watched `roadmap` fail in 5 s on run 41193227111, then closed it unmerged and deleted the branch. That satisfies the task's own Done-when here, so F-05 closes and this repo reads 32/37 (86%), Foundations 9/9. Found while running the XC-12 roadmap-sync audit, which also reopened `S-10` and `XC-03` in the master and closed `F-04` in Studio on live label/template evidence.
 | 2026-10-31 | docs/tollcraft-shape | — (README) | Matched the reference README exactly: dropped the `## Contents` block (the Tollcraft README has none), and replaced the socials placeholder with the real community links, Discord (`discord.gg/4WFU6fwPe`) and Telegram (`t.me/Pactwright`). No other content changed. |
 | 2026-10-30 | docs/readme-template | — | README restructured to the reference (Tollcraft soroban-budget-assert) section architecture: banner with CI/license/Scorecard badges only, Contents, Overview + Architecture + "Invariants, vectors and budget tests", Benchmarks, "Supported Versions & Compatibility" (manifest pins, CI gates by trigger, compatibility matrix), Quick Start, Measurements, Community & Maintainers, Contributing, License. All evidence kept: mermaid diagrams, API/error-code/invariant tables, both cost tiers, the 5 bench and 14 MVP transactions. Dropped: the stale-badge row (90 tests, testnet, release, ≤2.1% CPU) — the test count now sits in the body with its 2026-10-30 measurement date; the ≤2.1% figure (BENCHMARKS.md states under 2%) and the claim that cargo-deny runs in CI (no workflow runs it). |
