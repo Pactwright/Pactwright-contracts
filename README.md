@@ -41,47 +41,6 @@
 | Design | [PRD](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [15 ADRs](docs/adr/) |
 | License | [MIT](LICENSE), with every third-party license listed |
 
-## Contents
-
-1. [Overview](#-overview)
-   - [Architecture](#️-architecture)
-   - [Invariants, vectors and budget tests](#-invariants-vectors-and-budget-tests)
-   - [Why a pact instead of a refund](#why-a-pact-instead-of-a-refund)
-   - [Key ideas in plain language](#key-ideas-in-plain-language)
-   - [A purchase, step by step](#a-purchase-step-by-step)
-   - [How a pact moves through its life](#how-a-pact-moves-through-its-life)
-   - [Two protection modes](#two-protection-modes)
-   - [Who does what, and who you have to trust](#who-does-what-and-who-you-have-to-trust)
-   - [When things go wrong](#when-things-go-wrong)
-   - [Contract API](#contract-api)
-   - [Error codes](#error-codes)
-   - [What the contract does today](#what-the-contract-does-today)
-   - [Security and known limits](#security-and-known-limits)
-   - [Stellar, specifically](#stellar-specifically)
-   - [FAQ](#faq)
-2. [Benchmarks](#-benchmarks)
-   - [On-chain evidence](#on-chain-evidence)
-   - [Every MVP scenario, on the main testnet deployment](#every-mvp-scenario-on-the-main-testnet-deployment)
-3. [Supported Versions & Compatibility](#️-supported-versions--compatibility)
-   - [What "Supported" means here](#what-supported-means-here)
-   - [Compatibility matrix](#compatibility-matrix)
-4. [Quick Start](#-quick-start)
-   - [1. Installation](#1-installation)
-   - [2. Configuration](#2-configuration)
-   - [3. Usage](#3-usage)
-   - [Layout](#layout)
-5. [Measurements](#-measurements)
-6. [Community & Maintainers](#-community--maintainers)
-7. [Contributing](#️-contributing)
-   - [Contributors](#‍-contributors)
-8. [License](#license)
-   - [Built on](#built-on)
-   - [What the MIT license means for you](#what-the-mit-license-means-for-you)
-   - [Third-party code and licenses](#third-party-code-and-licenses)
-   - [Ideas, without code](#ideas-without-code)
-   - [The other Pactwright repositories](#the-other-pactwright-repositories)
-   - [Contributing under this license](#contributing-under-this-license)
-
 ## 📖 Overview
 
 This repository is the on-chain half of Pactwright: the `pact` Soroban escrow contract for
@@ -705,6 +664,10 @@ file is right and this README has drifted.
 
 ## 🤝 Community & Maintainers
 
+Join the discussion and get support:
+
+- **Discord**: [discord.gg/4WFU6fwPe](https://discord.gg/4WFU6fwPe)
+- **Telegram**: [t.me/Pactwright](https://t.me/Pactwright)
 - Issues and task work: [Pactwright-contracts issues](https://github.com/Pactwright/Pactwright-contracts/issues)
   (pick one labelled `Stellar Wave`; `core-team-only` issues are not open to outside contributors).
 - Documentation hub: [pactwright.github.io/docs](https://pactwright.github.io/docs/)
@@ -714,7 +677,6 @@ file is right and this README has drifted.
 - Design discussion: [docs/adr/](docs/adr/) holds ADR-001…ADR-015, and
   [docs/ARCHITECTURE_ESSENTIALS.md](docs/ARCHITECTURE_ESSENTIALS.md) states the rules a change must not
   break.
-<!-- socials: fill in — Discord / X / Telegram links go here once the accounts exist -->
 <!-- demo: fill in — screencast or dashboard link -->
 
 | Maintainer | Role | Scope |

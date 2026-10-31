@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| Last updated | 2026-10-30 |
+| Last updated | 2026-10-31 |
 | Progress | **31 / 37 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
@@ -87,6 +87,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-10-31 | docs/tollcraft-shape | — (README) | Matched the reference README exactly: dropped the `## Contents` block (the Tollcraft README has none), and replaced the socials placeholder with the real community links, Discord (`discord.gg/4WFU6fwPe`) and Telegram (`t.me/Pactwright`). No other content changed. |
 | 2026-10-30 | docs/readme-template | — | README restructured to the reference (Tollcraft soroban-budget-assert) section architecture: banner with CI/license/Scorecard badges only, Contents, Overview + Architecture + "Invariants, vectors and budget tests", Benchmarks, "Supported Versions & Compatibility" (manifest pins, CI gates by trigger, compatibility matrix), Quick Start, Measurements, Community & Maintainers, Contributing, License. All evidence kept: mermaid diagrams, API/error-code/invariant tables, both cost tiers, the 5 bench and 14 MVP transactions. Dropped: the stale-badge row (90 tests, testnet, release, ≤2.1% CPU) — the test count now sits in the body with its 2026-10-30 measurement date; the ≤2.1% figure (BENCHMARKS.md states under 2%) and the claim that cargo-deny runs in CI (no workflow runs it). |
 | 2026-10-30 | README | — | README: links to the docs site and the contract API reference; the stale note that the facilitator's pact scheme 'isn't built yet' now says it's merged and hosted, and links the hosted verifier's on-chain verdict. |
 | 2026-10-30 | deps | — | Test and tooling dependencies: ed25519-dalek 2.2 → 3.0 and stellar-strkey 0.0.16 → 1.0 (replaces Dependabot #53 and #54, which conflicted). strkey 1.0 redacts private keys by default, so pact-sign's vector test encodes the seed through `Unredacted`. Test-only: the contract WASM hash is unchanged (748b5dbc…5d1a4). |
