@@ -20,7 +20,7 @@
 - **M0 exact-refund:** standard `exact`; DENY/partial → seller's `RefundVault.refund`. **Seller-cooperative; never call it guaranteed.**
 - **M2 escrow:** `pact` holds the cap. ALLOW → seller settles `actual`, rest back. DENY / silence / deadline → buyer. Guaranteed both ways. Testnet until audit.
 - **Metered** = M2 + `MeterTerms`; signed usage vouchers; **no verdict**.
-- **M1 (`upto`) is deferred.** Don't build it (ADR-002 superseded).
+- **M1 (`upto`) is out of scope.** Don't build it and don't reference it: no vendored `upto-authorization` WASM, no SDK type, no verifier condition (ADR-002 superseded; **ADR-017** is the scope decision and carries the re-open trigger).
 
 ## 4. Non-negotiable rules
 - **No admin path to funds.** Admin can only `set_verifier` (new pacts only).

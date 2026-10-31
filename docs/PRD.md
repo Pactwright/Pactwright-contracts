@@ -54,7 +54,7 @@ is reusable as a whole.
 - **G6.** Each guarantee is stated honestly per mode.
 
 ### Non-goals (v1)
-- Allowance-based payments (`upto`): deferred until Accensa's ADR-002 resolves (see §13).
+- Allowance-based payments (`upto`): out of scope; dropped in ADR-017 with a re-open trigger (see §13).
 - A facilitator of our own: we contribute a scheme to Accensa's.
 - A wallet: agents use funded keypairs; humans use their existing wallet (Pollar as add-on).
 - Human arbitration: disputes are re-verifications.
@@ -211,7 +211,7 @@ Priority: **P0** = MVP · **P1** = v1 · **P2** = later.
 | **MVP** | M0 + M2 (verdict) on testnet; `pact` scheme in the Accensa facilitator; verifier with one condition kind; receipts and certificates; SDK, MCP, Express middleware; studio pact page + certificate viewer. **Accensa + Tollcraft + Witness.** | SCF tranche 1 · Drips applications |
 | **v1** | Metering; disputes; Hono; merchant and principal views; KMS; evidence privacy; M0 on mainnet via a production facilitator. **Add-ons: Vespi, Pollar, Ficha-style demo.** | SCF tranche 2 · hackathon pre-work |
 | **v1.1** | Audit; M2 on mainnet; Accensa facilitator hardened for production. | SCF tranche 3 · hackathon goals |
-| **v2** | BookerBob ranking and proof-of-purchase reviews; smart-account agents (true revoke); Pollar Studio template; M1 if `upto` is resolved. | Post-SCF |
+| **v2** | BookerBob ranking and proof-of-purchase reviews; smart-account agents (true revoke); Pollar Studio template; M1 only if ADR-017's re-open trigger is met. | Post-SCF |
 
 ### Hackathon goals (Scale path, declared before the event)
 1. First M2 pact settled on mainnet after audit (or M0 on mainnet if the audit isn't finished).
@@ -232,7 +232,7 @@ Priority: **P0** = MVP · **P1** = v1 · **P2** = later.
 | Pollar | SDK terms | Principal funding wallet | v1 |
 | Ficha | MIT | Per-unit refund idea (credited, not copied) | v1 |
 | BookerBob | MIT | Ranking, Semaphore groups | v2 |
-| Accensa `upto-authorization` | MIT | M1 | Deferred |
+| Accensa `upto-authorization` | MIT | M1 | Dropped — ADR-017 |
 
 ## 11. Risks
 
@@ -265,7 +265,7 @@ Priority: **P0** = MVP · **P1** = v1 · **P2** = later.
 
 All proposals from the v0.1 review were accepted. Product-level changes:
 
-- **Modes:** M1 (allowance) dropped until `upto` is resolved; MVP = M0 + M2.
+- **Modes:** M1 (allowance) dropped until `upto` is resolved; MVP = M0 + M2. The scope decision and the re-open trigger are recorded in ADR-017.
 - **Honest guarantees:** M0 is "refund-promised (seller-cooperative)"; only M2 guarantees the buyer.
 - **Corrected claims:** "never buy XLM" (sponsored reserves) instead of "only USDC"; revoke = stop topping up until smart accounts; reviews "cost a real purchase to fake", not "can't be bought".
 - **New requirements:** delivery receipts, buyer-submitted evidence, non-delivery DENY, partial amounts, idempotency, self-dealing and token checks, verdict/settle deadlines with a silence policy, disputes, per-transition receipts, indexer backfill, verification threshold.
