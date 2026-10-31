@@ -11,85 +11,162 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Pactwright/Pactwright-contracts/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/tests-90_passing-2DD4BF?style=for-the-badge&labelColor=0B1220" alt="90 tests passing"></a>
-  <a href="DEPLOYMENTS.md"><img src="https://img.shields.io/badge/testnet-deployed-2DD4BF?style=for-the-badge&labelColor=0B1220" alt="Deployed on Stellar testnet"></a>
-  <a href="https://github.com/Pactwright/Pactwright-contracts/releases/tag/v0.1.0-rc.1"><img src="https://img.shields.io/badge/release-v0.1.0--rc.1-6366F1?style=for-the-badge&labelColor=0B1220" alt="Release v0.1.0-rc.1"></a>
-  <a href="docs/BENCHMARKS.md"><img src="https://img.shields.io/badge/cost-%E2%89%A42.1%25_of_tx_CPU-6366F1?style=for-the-badge&labelColor=0B1220" alt="Every call at most 2.1% of the transaction CPU limit"></a>
-  <a href="docs/SECURITY_MODEL.md"><img src="https://img.shields.io/badge/audit-not_yet-F59E0B?style=for-the-badge&labelColor=0B1220" alt="Not audited yet"></a>
-  <a href="#license"><img src="https://img.shields.io/badge/license-MIT-94A3B8?style=for-the-badge&labelColor=0B1220" alt="MIT license"></a>
-</p>
-
-<p align="center">
-  <a href="https://pactwright.github.io/docs/"><b>Documentation</b></a> ·
-  <a href="#in-60-seconds-for-reviewers"><b>In 60 seconds</b></a> ·
-  <a href="#a-purchase-step-by-step"><b>A purchase, step by step</b></a> ·
-  <a href="#verify-it-yourself"><b>Verify it yourself</b></a> ·
-  <a href="#on-chain-evidence"><b>On-chain evidence</b></a> ·
-  <a href="#license"><b>License</b></a> ·
-  <a href="https://github.com/Pactwright/Pactwright-Kit">SDK</a> ·
-  <a href="https://github.com/Pactwright/Pactwright-studio">Studio</a>
-</p>
-
-<p align="center">
+  <a href="https://github.com/Pactwright/Pactwright-contracts/actions/workflows/ci.yml"><img src="https://github.com/Pactwright/Pactwright-contracts/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/Pactwright/Pactwright-contracts"><img src="https://api.scorecard.dev/projects/github.com/Pactwright/Pactwright-contracts/badge" alt="OpenSSF Scorecard"></a>
+</p>
+
+<p align="center">
+  <a href="https://pactwright.github.io/docs/"><strong>Documentation</strong></a> ·
+  <a href="#-quick-start"><strong>Quick start</strong></a> ·
+  <a href="#-benchmarks"><strong>Evidence</strong></a>
+  <!-- demo: add a Docs · Dashboard · Demo link row here when a screencast or dashboard exists -->
 </p>
 
 > [!IMPORTANT]
 > **Testnet only, not audited.** The `pact` contract is live on Stellar testnet and every number
-> below links to a real transaction. Do not use it with real funds until the audit (ROADMAP P8-01).
+> below links to a real transaction or to the file that recorded it. Nothing here is on mainnet, and
+> no external audit has been performed; do not use it with real funds until the audit (ROADMAP
+> P8-01). The safest first read is [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md).
 
 | | |
 |---|---|
 | `pact` contract (testnet) | [`CDUXJJUN…MFEV6`](https://stellar.expert/explorer/testnet/contract/CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6) |
-| Its WASM hash | `748b5dbc…5d1a4`, identical in the [release](https://github.com/Pactwright/Pactwright-contracts/releases/tag/v0.1.0-rc.1), on testnet and in a local build |
+| Its WASM hash | [`748b5dbcc800…35d1a4`](DEPLOYMENTS.md), identical in the [release](https://github.com/Pactwright/Pactwright-contracts/releases/tag/v0.1.0-rc.1), on testnet and in a local build |
 | Receipt anchor (testnet) | [`CAEO5GBC…LNJ2`](https://stellar.expert/explorer/testnet/contract/CAEO5GBC3ULRC5RYBSCSOXLNXHU2HZAHNW5HY5LZM3DIPFMX357ILNJ2), Accensa `ReceiptAnchor` v0.2.0 |
 | Payment token | USDC ([`CBIELTK6…DAMA`](https://stellar.expert/explorer/testnet/contract/CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA), Circle testnet) |
 | Measured cost | [docs/BENCHMARKS.md](docs/BENCHMARKS.md): local and real-transaction numbers per call |
 | Trust model | [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) |
 | Documentation | [pactwright.github.io/docs](https://pactwright.github.io/docs/), including the [contract API reference](https://pactwright.github.io/docs/reference/contract/) |
 | Design | [PRD](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [15 ADRs](docs/adr/) |
-| License | [MIT](#license), with every third-party license listed |
+| License | [MIT](LICENSE), with every third-party license listed |
 
 ## Contents
 
-1. [In 60 seconds, for reviewers](#in-60-seconds-for-reviewers)
-2. [Why this exists](#why-this-exists)
-3. [Key ideas in plain language](#key-ideas-in-plain-language)
-4. [A purchase, step by step](#a-purchase-step-by-step)
-5. [How a pact moves through its life](#how-a-pact-moves-through-its-life)
-6. [Two protection modes](#two-protection-modes)
-7. [Who does what, and who you have to trust](#who-does-what-and-who-you-have-to-trust)
-8. [When things go wrong](#when-things-go-wrong)
-9. [What the contract does today](#what-the-contract-does-today)
-10. [Contract API](#contract-api)
-11. [Error codes](#error-codes)
-12. [Verify it yourself](#verify-it-yourself)
-13. [On-chain evidence](#on-chain-evidence)
-14. [Stellar, specifically](#stellar-specifically)
-15. [What it costs](#what-it-costs)
-16. [Security and known limits](#security-and-known-limits)
-17. [Clone, build and deploy](#clone-build-and-deploy)
-18. [Layout](#layout)
-19. [Project status](#project-status)
-20. [FAQ](#faq)
-21. [Built on](#built-on)
-22. [Contributing](#contributing)
-23. [License](#license)
+1. [Overview](#-overview)
+   - [Architecture](#️-architecture)
+   - [Invariants, vectors and budget tests](#-invariants-vectors-and-budget-tests)
+   - [Why a pact instead of a refund](#why-a-pact-instead-of-a-refund)
+   - [Key ideas in plain language](#key-ideas-in-plain-language)
+   - [A purchase, step by step](#a-purchase-step-by-step)
+   - [How a pact moves through its life](#how-a-pact-moves-through-its-life)
+   - [Two protection modes](#two-protection-modes)
+   - [Who does what, and who you have to trust](#who-does-what-and-who-you-have-to-trust)
+   - [When things go wrong](#when-things-go-wrong)
+   - [Contract API](#contract-api)
+   - [Error codes](#error-codes)
+   - [What the contract does today](#what-the-contract-does-today)
+   - [Security and known limits](#security-and-known-limits)
+   - [Stellar, specifically](#stellar-specifically)
+   - [FAQ](#faq)
+2. [Benchmarks](#-benchmarks)
+   - [On-chain evidence](#on-chain-evidence)
+   - [Every MVP scenario, on the main testnet deployment](#every-mvp-scenario-on-the-main-testnet-deployment)
+3. [Supported Versions & Compatibility](#️-supported-versions--compatibility)
+   - [What "Supported" means here](#what-supported-means-here)
+   - [Compatibility matrix](#compatibility-matrix)
+4. [Quick Start](#-quick-start)
+   - [1. Installation](#1-installation)
+   - [2. Configuration](#2-configuration)
+   - [3. Usage](#3-usage)
+   - [Layout](#layout)
+5. [Measurements](#-measurements)
+6. [Community & Maintainers](#-community--maintainers)
+7. [Contributing](#️-contributing)
+   - [Contributors](#‍-contributors)
+8. [License](#license)
+   - [Built on](#built-on)
+   - [What the MIT license means for you](#what-the-mit-license-means-for-you)
+   - [Third-party code and licenses](#third-party-code-and-licenses)
+   - [Ideas, without code](#ideas-without-code)
+   - [The other Pactwright repositories](#the-other-pactwright-repositories)
+   - [Contributing under this license](#contributing-under-this-license)
 
-## In 60 seconds, for reviewers
+## 📖 Overview
 
-- **What it is.** A Soroban escrow for purchases an AI agent makes. The buyer locks a cap. A verifier's signed verdict, or for metered services the buyer's own signed usage, decides how much the seller gets. The rest goes back to the buyer.
-- **What runs today.** The contract on testnet, a release with a reproducible WASM, and 90 tests in CI (86 contract tests, 4 tool tests). Those include fuzzing, budget tests and integration with the real Accensa contracts, plus a benchmark run as real testnet transactions.
-- **What makes it safe.** No admin can move funds. Two deadlines and a silence policy mean a missing verifier or seller can never strand the buyer's money. Each verdict is bound to one pact and one condition hash.
-- **Check one claim yourself.** `scripts/build.sh` prints the WASM hash. Compare it with the [release asset](https://github.com/Pactwright/Pactwright-contracts/releases/tag/v0.1.0-rc.1) and the [deployed contract](https://stellar.expert/explorer/testnet/contract/CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6): they are the same bytes.
+This repository is the on-chain half of Pactwright: the `pact` Soroban escrow contract for
+purchases an AI agent makes. The buyer locks a cap. A verifier's signed verdict — or, for metered
+services, the buyer's own signed usage — decides how much the seller gets. The rest returns to the
+buyer. No admin can move those funds, and no counterparty's cooperation is required to get money
+back once a verdict says DENY.
 
-## Why this exists
+AI agents already buy things on their own: an API call, a translated document, a dataset, minutes of
+compute. On Stellar they can already pay with [x402](https://developers.stellar.org/docs/build/agentic-payments/x402):
+the seller answers `402 Payment Required`, the agent pays in USDC and retries. That covers *paying*.
+It does not cover what happens when the purchase goes wrong, and an agent has no one to call. So the
+rules for getting money back have to be inside the payment itself. That is what a pact is.
 
-AI agents now buy things on their own: an API call, a translated document, a dataset, minutes
-of compute. On Stellar they can already pay with [x402](https://developers.stellar.org/docs/build/agentic-payments/x402).
-The seller answers `402 Payment Required`, the agent pays in USDC and retries.
+Everything below is what this repo actually contains and actually proves: the contract and its API,
+the invariants and test vectors that pin its behaviour, the cost limits enforced in CI and measured
+on real transactions, and the testnet evidence. **What is not real here:** there is no mainnet
+deployment, no audit report, and no M1 `upto` mode — the lighter M0 refund mode is real, but it
+lives in the seller's middleware, not in this contract. Full documentation lives at
+[pactwright.github.io/docs](https://pactwright.github.io/docs/).
 
-That covers *paying*. It doesn't cover what happens when the purchase goes wrong:
+The SDK, seller middleware and verifier live in
+[Pactwright-Kit](https://github.com/Pactwright/Pactwright-Kit); pact pages and receipt anchoring live
+in [Pactwright-studio](https://github.com/Pactwright/Pactwright-studio).
+
+### 🏗️ Architecture
+
+The workspace has three crates, a vendored dependency and the scripts that bind them together, all
+in one repo:
+
+1. **`contracts/pact` — the escrow contract** ([manifest](contracts/pact/Cargo.toml), `publish = false`)
+   - Nine entrypoints: `open`, `record_verdict`, `settle`, `close_meter`, `release`, `set_verifier`,
+     `get_pact`, `get_config`, `extend_pact_ttl`, plus the deploy-time `__constructor`.
+   - `lifecycle.rs` moves USDC through the Stellar Asset Contract and enforces the two deadlines;
+     `verdict.rs` and `meter.rs` verify ed25519 signatures; `hashing.rs` is the only place a hash is
+     computed.
+   - Amounts are `i128` stroops; every failure aborts with a named `panic_with_error!` code.
+2. **`test-vectors/` — the source of truth for every hash** ([README](test-vectors/README.md))
+   - Eight vector files, generated from the contract's own hashing code by `scripts/gen_vectors.sh`
+     and never edited by hand; `cargo test` fails when a committed file drifts from the code.
+     The one documented exception is `condition_hash.json`, which comes from the Kit's canonical-JSON
+     hashing (ADR-015) and is treated as opaque bytes here.
+   - The same files are consumed by the TypeScript SDK in Pactwright-Kit, so both implementations are
+     pinned to one encoding.
+3. **`tools/pact-sign` — off-chain signing** ([manifest](tools/pact-sign/Cargo.toml))
+   - Produces pact IDs, verdict attestations and usage vouchers using the contract crate as a library,
+     so a test signature and an on-chain-verifiable signature come from the same code path.
+4. **`contracts/testutils` and `vendor/wasm` — real counterparties in tests** ([`SHA256SUMS`](vendor/wasm/SHA256SUMS))
+   - Pinned, hash-checked Accensa `ReceiptAnchor` and `RefundVault` v0.2.0 WASMs, used in integration
+     tests so receipts are verified against the contract that will check them in production.
+5. **`scripts/` and `.github/workflows/` — the two cost tiers**
+   - `scripts/build.sh` prints the WASM hash — the same sha256 the on-chain deployment carries, which
+     [DEPLOYMENTS.md](DEPLOYMENTS.md) records; `scripts/bench-testnet.sh` runs every entrypoint as a
+     real testnet transaction, and `--check` fails the run when a recorded limit in
+     [budget.toml](budget.toml) is exceeded.
+
+### 🧪 Invariants, vectors and budget tests
+
+What the test suite catches:
+
+- **Eight named invariants**, each tied to a test in
+  [docs/INVARIANTS.md](docs/INVARIANTS.md) — including "no entrypoint lets the admin move funds or
+  change an open pact" (invariant 4) and "`paid_to_seller + returned_to_buyer == cap` at the terminal
+  state" (invariant 2). Run them with `cargo test invariant`.
+- **Property and fuzz targets** (`bolero`), including amounts always summing to the cap and deadlines
+  never trapping. Run them with `cargo test fuzz` (see [`fuzz/README.md`](fuzz/README.md)).
+- **Byte-for-byte vectors** for `pact_id`, `condition_hash`, verdict, usage voucher, delivery receipt,
+  receipt leaf and Merkle root, asserted by the contract crate and by the TypeScript SDK.
+- **Integration against the real Accensa WASMs**: a receipt verifies in `ReceiptAnchor`; an M0 refund
+  happens once per `pact_id`.
+- **Budget tests on every entrypoint** ([`contracts/pact/src/test/budget.rs`](contracts/pact/src/test/budget.rs)),
+  running the compiled WASM, with limits set at measured × 1.15
+  ([Tollcraft `budget-macros`](https://github.com/Tollcraft/soroban-budget-assert), pinned by commit
+  in [contracts/pact/Cargo.toml](contracts/pact/Cargo.toml)). A cost regression fails CI rather than
+  appearing on the network, and the Tollcraft cost-lint gate in
+  [`.github/workflows/cost-lint.yml`](.github/workflows/cost-lint.yml) must pass on every pull request.
+
+Measured 2026-10-30 with `cargo test --workspace`: **90 passed, 0 failed** — 86 in the contract
+suite, 4 in the tool suite. No test is ignored.
+
+What these tests cannot see: they run against Pactwright's own verifier key and fixture deliveries,
+not against adversarial or arbitrary real-world conditions, and they do not exercise the x402
+facilitator path (that lives in Pactwright-Kit). Nothing here is an audit.
+
+### Why a pact instead of a refund
 
 | Without Pactwright | With a pact |
 |---|---|
@@ -100,14 +177,7 @@ That covers *paying*. It doesn't cover what happens when the purchase goes wrong
 | Pay-per-minute services charge up front | The buyer signs cumulative usage; the seller is paid for exactly that |
 | Receipts live on the seller's server | Every outcome is anchored on-chain and verifiable by anyone |
 
-An agent has no one to call when a purchase goes wrong, so the rules for getting money back have
-to be in the payment itself. That is what a pact is.
-
-This repository is the on-chain half: the `pact` contract. The SDK, seller middleware and
-verifier live in [Pactwright-Kit](https://github.com/Pactwright/Pactwright-Kit). Pact pages and
-receipt anchoring live in [Pactwright-studio](https://github.com/Pactwright/Pactwright-studio).
-
-## Key ideas in plain language
+### Key ideas in plain language
 
 | Term | Meaning |
 |---|---|
@@ -125,7 +195,7 @@ receipt anchoring live in [Pactwright-studio](https://github.com/Pactwright/Pact
 
 Amounts are in stroops of the payment token. USDC has 7 decimals, so `10_000_000` = 1 USDC.
 
-## A purchase, step by step
+### A purchase, step by step
 
 An agent buys a document translation for at most **1 USDC**. The seller's price depends on the
 number of pages actually delivered.
@@ -162,7 +232,7 @@ like "usage so far: 500 units" as it consumes. When the session ends, the seller
 `close_meter` with the latest voucher and is paid `500 × unit_price`. The rest of the cap returns
 to the agent.
 
-## How a pact moves through its life
+### How a pact moves through its life
 
 ```mermaid
 stateDiagram-v2
@@ -183,9 +253,10 @@ Every pact ends in exactly one terminal state, `Settled` or `Released`. In both,
 to the seller plus the amount returned to the buyer equals the cap. These are two of the eight
 [invariants](docs/INVARIANTS.md), and each invariant is enforced by a named test.
 
-## Two protection modes
+### Two protection modes
 
 Pactwright offers buyers two levels of protection. This repository implements the stronger one.
+There is no third mode: an "up to" partial-payment mode was considered and deliberately not built.
 
 | | M0: exact refund | M2: escrow (this contract) |
 |---|---|---|
@@ -195,7 +266,7 @@ Pactwright offers buyers two levels of protection. This repository implements th
 | Best for | Cheap, high-volume calls from trusted sellers | Larger or one-off purchases, new sellers |
 | Lives in | Pactwright-Kit (seller middleware) | `contracts/pact` |
 
-## Who does what, and who you have to trust
+### Who does what, and who you have to trust
 
 | Role | Can | Cannot |
 |---|---|---|
@@ -209,7 +280,7 @@ In short, the buyer trusts only the verifier named in the pact, and the seller t
 verifier to have checked honestly. Neither has to trust the admin or the other party. The full
 analysis is in [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md).
 
-## When things go wrong
+### When things go wrong
 
 | Situation | What happens |
 |---|---|
@@ -223,21 +294,7 @@ analysis is in [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md).
 | The verifier key leaks | The admin rotates the key for new pacts. Existing pacts are exposed only until their verdict deadline. |
 | The issuer freezes the buyer's USDC | `release` can't pay a frozen account, so funds stay in escrow until the freeze lifts (a known limit). |
 
-## What the contract does today
-
-| Capability | Status |
-|---|---|
-| Escrow a capped purchase in USDC | Testnet |
-| Verdict-gated settlement, partial amounts, single verdict per pact | Testnet |
-| Pay-per-unit metering with signed usage vouchers | Testnet |
-| Verdict and settle deadlines with a silence policy (refund or pay) | Testnet |
-| Receipts anchored in `ReceiptAnchor` and verified against it | Tested (integration) |
-| Admin cannot move funds or change an open pact | Tested (invariant 4) |
-| Reproducible build: release = deployment = local build | Proven |
-| Per-call cost limits enforced in CI and on real transactions | Proven |
-| Mainnet | After the audit |
-
-## Contract API
+### Contract API
 
 | Function | Who calls it | What it does |
 |---|---|---|
@@ -255,9 +312,9 @@ Every state change emits a typed event, listed in [docs/EVENTS.md](docs/EVENTS.m
 byte encoding of IDs and signed messages is in [ARCHITECTURE.md §4.3](docs/ARCHITECTURE.md) and
 pinned by [`test-vectors/`](test-vectors), which the TypeScript SDK tests against too.
 
-## Error codes
+### Error codes
 
-A failed call returns `Error(Contract, #n)`:
+A failed call returns `Error(Contract, #n)` ([`contracts/pact/src/errors.rs`](contracts/pact/src/errors.rs)):
 
 | # | Name | Meaning |
 |---|---|---|
@@ -277,27 +334,116 @@ A failed call returns `Error(Contract, #n)`:
 | 14 | `IsMetered` | Verdict or settle on a metered pact |
 | 15 | `Unauthorized` | The caller isn't allowed to do this |
 
-## Verify it yourself
+### What the contract does today
 
-Each step needs only this repo and the [stellar CLI](https://developers.stellar.org/docs/tools/cli) 28.1.0.
+| Capability | Status |
+|---|---|
+| Escrow a capped purchase in USDC | Testnet |
+| Verdict-gated settlement, partial amounts, single verdict per pact | Testnet |
+| Pay-per-unit metering with signed usage vouchers | Testnet |
+| Verdict and settle deadlines with a silence policy (refund or pay) | Testnet |
+| Receipts anchored in `ReceiptAnchor` and verified against it | Tested (integration) |
+| Admin cannot move funds or change an open pact | Tested (invariant 4) |
+| Reproducible build: release = deployment = local build | Proven |
+| Per-call cost limits enforced in CI and on real transactions | Proven |
+| Mainnet | After the audit |
 
-```bash
-# 1. The tests: invariants, deadlines, fuzzing, integration, budgets
-scripts/build.sh && cargo test
+### Security and known limits
 
-# 2. The build is reproducible: compare with the release asset and the deployed contract
-scripts/build.sh                      # prints 748b5dbc…5d1a4
-gh release download v0.1.0-rc.1 -R Pactwright/Pactwright-contracts -p '*.sha256' -O -
+- **Not audited.** Testnet only until the audit (ROADMAP P8-01).
+- **No admin path to funds**, tested as [invariant 4](docs/INVARIANTS.md).
+- **Signatures are domain-separated** (`pactwright-verdict-v1:`, `pactwright-usage-v1:`, …, defined in
+  [`hashing.rs`](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/hashing.rs#L14)), so one can never be replayed as another.
+- **Known limits:**
+  - A frozen buyer trustline blocks `release`.
+  - The admin key itself can't be changed in this version; losing it only blocks verifier rotation, never funds.
+  - The M0 refund mode lives outside this contract and depends on the seller.
+- Report vulnerabilities privately, as described in [SECURITY.md](SECURITY.md).
 
-# 3. The deployed configuration (read-only simulation, no fees)
-stellar contract invoke --network testnet --source <any-funded-identity> --send=no \
-  --id CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6 -- get_config
+### Stellar, specifically
 
-# 4. Every hash and signature, byte for byte, against the published vectors
-cargo test -p pact-sign
-```
+| Stellar feature | Line of code |
+|---|---|
+| USDC moved into escrow through the Stellar Asset Contract | [lifecycle.rs:62](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L62) |
+| `ed25519_verify` on the verifier's attestation | [verdict.rs:50](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/verdict.rs#L50) |
+| `ed25519_verify` on the buyer's usage voucher | [meter.rs:49](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/meter.rs#L49) |
+| Storage TTL extended past the settle window, so funds never sit in an archived entry | [lifecycle.rs:87](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L87) |
+| Deadlines checked against the network's `max_ttl` | [lifecycle.rs:47](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L47) |
+| Release pays only the buyer, with no auth required | [lifecycle.rs:176](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L176) |
+| Domain-separated digests (verdict, usage, delivery, receipt) | [hashing.rs:14](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/hashing.rs#L14) |
+| Typed events with `#[contractevent]` | [events.rs:17](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/events.rs#L17) |
 
-## On-chain evidence
+Why Stellar: sub-cent fees make per-purchase escrow viable, and USDC is native through the
+Stellar Asset Contract. Soroban's predictable resource model also lets every call carry a
+measured cost limit.
+
+### FAQ
+
+**Why not just let the seller refund?** Then a refund depends on the seller. Pactwright supports
+that lighter mode too (M0, through the seller's refund vault). This contract is the mode where
+neither side has to trust the other.
+
+**Who runs the verifier?** For now, Pactwright does. The verifier's key is fixed per pact, and
+its verdicts follow the open [Witness](https://github.com/fabian416/witness) envelope format. It
+can only sign verdicts; it can never move funds.
+
+**Can a verdict be wrong?** Yes. That is why the condition is frozen before payment, the verdict
+is bound to it, and partial amounts exist. Verifier dispute milestones are planned for v1
+(ROADMAP P7-05).
+
+**What does an agent need to hold?** Only USDC. Account reserves can be sponsored, and network
+fees for these calls are fractions of a cent.
+
+**Can I reuse this code?** Yes, under the MIT license (see [License](#license)). It is unaudited,
+so read the [security model](docs/SECURITY_MODEL.md) first.
+
+## 📊 Benchmarks
+
+Two tiers, both in [docs/BENCHMARKS.md](docs/BENCHMARKS.md), both measured on the deployed WASM
+`748b5dbcc800…35d1a4` on 2026-10-28 (soroban-sdk 28.0.0, stellar-cli 28.1.0).
+
+**Tier A — local, WASM mode, CI-blocking.** Each test resets the budget immediately before the call
+and asserts the call alone.
+
+| Entrypoint | Path measured | CPU instructions | Memory bytes | CPU limit | Memory limit |
+|---|---|---|---|---|---|
+| `open` | escrow transfer in | 889,745 | 1,436,284 | 1,030,000 | 1,660,000 |
+| `record_verdict` | ed25519 check + state write | 1,122,084 | 1,362,925 | 1,300,000 | 1,570,000 |
+| `settle` | partial: two transfers (worst case) | 1,073,058 | 1,475,617 | 1,240,000 | 1,700,000 |
+| `settle` | full: one transfer | 889,671 | 1,438,667 | — | — |
+| `release` | full refund, one transfer | 872,907 | 1,423,341 | 1,010,000 | 1,640,000 |
+| `close_meter` | ed25519 check + two transfers | 1,560,061 | 1,484,463 | 1,800,000 | 1,710,000 |
+
+**Tier B — real testnet transactions.** `scripts/bench-testnet.sh` runs each entrypoint as a real
+transaction on a dedicated bench deployment with a test token (bench `pact`
+`CBWEAVYZD6SP3PA5V6ZGEBHBUYJENBAAG5CFBTB6FCYDYZGPYRZZQEQM`, recorded in
+[DEPLOYMENTS.md](DEPLOYMENTS.md)), and reads the declared resources and charged fees back from RPC.
+Raw report: [`docs/benchmarks/2026-10-28-testnet.json`](docs/benchmarks/2026-10-28-testnet.json).
+
+| Call | Instructions | vs. Tier A | Fee charged (stroops XLM) | ≈ XLM |
+|---|---|---|---|---|
+| `open` | 1,071,584 | +20% | 181,442 | 0.0181 (includes storage rent) |
+| `record_verdict` | 1,647,891 | +47% | 8,791 | 0.0009 |
+| `settle` (partial) | 1,191,764 | +11% | 12,059 | 0.0012 |
+| `release` | 1,032,490 | +18% | 8,750 | 0.0009 |
+| `close_meter` | 2,039,236 | +31% | 12,694 | 0.0013 |
+
+Against the per-transaction ceilings recorded in [budget.toml](budget.toml) (CPU 100,000,000 ·
+memory 40,000,000 bytes), [docs/BENCHMARKS.md](docs/BENCHMARKS.md) states that every entrypoint uses
+under 2% of the CPU ceiling and under 4% of the memory ceiling locally; the heaviest call on the
+network, `close_meter`, declares 2,039,236 instructions against that same 100,000,000 ceiling.
+`open` costs more than the others because it pays rent for the pact's storage across the whole settle
+window (ADR-009). A settle charges 12,059 stroops = 0.0012 XLM, under 1% of a 1 USDC purchase at any
+XLM price below about $8.
+
+Local Tier A **undercounts** network instructions by 11–47%, most on the ed25519 paths. That gap is
+the reason both tiers exist: Tier A is a CI regression gate, Tier B bounds what the network actually
+charges. CI fails if a change pushes any call past its recorded limit, via the
+[Tollcraft](https://github.com/Tollcraft) cost-lint Action
+([`.github/workflows/cost-lint.yml`](.github/workflows/cost-lint.yml)) and the budget tests, and
+`scripts/bench-testnet.sh --check` does the same against real transactions.
+
+### On-chain evidence
 
 A full purchase cycle on testnet, with every step a real transaction (bench deployment, test token):
 
@@ -309,7 +455,9 @@ A full purchase cycle on testnet, with every step a real transaction (bench depl
 | `release` | DENY on a second pact; full refund, no one's permission needed | [`214da9bc…`](https://stellar.expert/explorer/testnet/tx/214da9bc23b3cceb96fbc2c17b3c1ada9f02d91a126a73128b0d45b384b7b8c7) |
 | `close_meter` | Metered pact: 500 units paid from a signed voucher, rest refunded | [`60409d84…`](https://stellar.expert/explorer/testnet/tx/60409d845346a18a066cc58ba8393d4a365a8f2e787afbde22268a3bfa26259a) |
 
-To rerun it, use `scripts/bench-testnet.sh --check` or the manual `bench-testnet` workflow in this repo.
+These five hashes are recorded in this repo, in
+[`docs/benchmarks/2026-10-28-testnet.json`](docs/benchmarks/2026-10-28-testnet.json). To rerun the
+cycle, use `scripts/bench-testnet.sh --check` or the manual `bench-testnet` workflow in this repo.
 
 ### Every MVP scenario, on the main testnet deployment
 
@@ -335,67 +483,186 @@ The Kit's own hashing produced each `pact_id`, and the contract accepted the Kit
 |  |  | release after the verdict deadline (silence = Refund) | [`e62aff4d…`](https://stellar.expert/explorer/testnet/tx/e62aff4d291eff2b76ba282aae987d82c6ca91e1681e7944d96abb1f3739f833) |
 | **Dispute refund** | dispute-1: 2 of 4 pages, 0.5 refunded | RefundVault.refund (dispute-1) | [`a191a000…`](https://stellar.expert/explorer/testnet/tx/a191a000f7920f2fff9839bbccceeeca35c82fce29a5e46510fd3db1bcdf2ff0) |
 
-The model's reading of each delivery was a fixture (the rules decide), and the payments in this run
-were direct. The facilitator's x402 `pact` scheme has since been merged and hosted on testnet; the
-Kit's testnet run now also opens a pact through it ([evidence](https://github.com/Pactwright/Pactwright-Kit#testnet-evidence)),
-and a verdict from the hosted verifier, with its real model, has been accepted by this contract
-([evidence](https://github.com/Pactwright/Pactwright-Kit#the-hosted-verifier)).
+These fourteen hashes are recorded in the Kit repository's
+[testnet evidence](https://github.com/Pactwright/Pactwright-Kit#testnet-evidence), not in this repo;
+this table links them. The model's reading of each delivery in that run was a fixture (the rules
+decide), and the payments were direct. The facilitator's x402 `pact` scheme has since been
+[merged into Accensa's facilitator](https://github.com/accensa/x402-facilitator-stellar/pull/651) and
+hosted on testnet, and the Kit's testnet run now also opens a pact through it; a verdict from the
+hosted verifier, with its real model, has been accepted by this contract
+([evidence](https://github.com/Pactwright/Pactwright-Kit#testnet-evidence)).
 
-## Stellar, specifically
+## ⚙️ Supported Versions & Compatibility
 
-| Stellar feature | Line of code |
-|---|---|
-| USDC moved into escrow through the Stellar Asset Contract | [lifecycle.rs:62](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L62) |
-| `ed25519_verify` on the verifier's attestation | [verdict.rs:50](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/verdict.rs#L50) |
-| `ed25519_verify` on the buyer's usage voucher | [meter.rs:49](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/meter.rs#L49) |
-| Storage TTL extended past the settle window, so funds never sit in an archived entry | [lifecycle.rs:87](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L87) |
-| Deadlines checked against the network's `max_ttl` | [lifecycle.rs:47](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L47) |
-| Release pays only the buyer, with no auth required | [lifecycle.rs:176](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/lifecycle.rs#L176) |
-| Domain-separated digests (verdict, usage, delivery, receipt) | [hashing.rs:14](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/hashing.rs#L14) |
-| Typed events with `#[contractevent]` | [events.rs:17](https://github.com/Pactwright/Pactwright-contracts/blob/cd151bdf8bce48f9fe027eb64efee5fdd6f7ae27/contracts/pact/src/events.rs#L17) |
+The workspace pins its toolchain and SDK in manifests, not in prose. The manifest dependencies — the
+source of truth for intent; `Cargo.lock` only records what resolved — are:
 
-Why Stellar: sub-cent fees make per-purchase escrow viable, and USDC is native through the
-Stellar Asset Contract. Soroban's predictable resource model also lets every call carry a
-measured cost limit.
-
-## What it costs
-
-Measured on real testnet transactions ([BENCHMARKS.md](docs/BENCHMARKS.md)); fees in XLM:
-
-| Call | CPU instructions | Fee |
+| Crate | Manifest dependency | Resolved in `Cargo.lock` |
 |---|---|---|
-| `open` | 1.07M | 0.0181 (includes storage rent) |
-| `record_verdict` | 1.65M | 0.0009 |
-| `settle` | 1.19M | 0.0012 |
-| `release` | 1.03M | 0.0009 |
-| `close_meter` | 2.04M | 0.0013 |
+| workspace ([`rust-toolchain.toml`](rust-toolchain.toml)) | Rust `1.98.1`, target `wasm32v1-none`, components `rustfmt` + `clippy` | — |
+| workspace ([`Cargo.toml`](Cargo.toml), `[workspace.dependencies]`) | `soroban-sdk = "28.0.0"` | 28.0.0 (host: `soroban-env-host` 28.0.2) |
+| `pactwright-pact` ([manifest](contracts/pact/Cargo.toml)) | `soroban-sdk` (workspace); dev: `ed25519-dalek = "3.0.0"`, `stellar-strkey = "1.0.0"`, `bolero = "0.13"` | 28.0.0, 3.0.0, 1.0.0, 0.13.7 |
+| `pactwright-testutils` ([manifest](contracts/testutils/Cargo.toml)) | `soroban-sdk` (workspace) with `testutils` | 28.0.0 |
+| `pact-sign` ([manifest](tools/pact-sign/Cargo.toml)) | `soroban-sdk` (workspace, `testutils`), `ed25519-dalek = "3.0.0"`, `stellar-strkey = "1.0.0"` | as above |
+| `budget-macros` ([manifest](contracts/pact/Cargo.toml)) | git dependency, `rev = "b2114411950455e85fbb07b7168fe4aa1a2a2ffe"` | 0.1.0 |
+| Tollcraft cost lint (CI pin, not a crate) | Action pinned to commit `c4a98e1b7d893b2538b68be8c10f7aa4cd499082`, `RUSTUP_TOOLCHAIN = nightly-2026-04-16` ([`cost-lint.yml`](.github/workflows/cost-lint.yml)) | — |
 
-Every call stays under 2.1% of a transaction's 100M CPU limit. `open` costs more because it pays
-rent for the pact's storage over the whole settle window. A settle costs 0.0012 XLM, which is
-under 1% of a 1 USDC purchase at any XLM price below about $8.
+`stellar-cli` 28.1.0 is what deploys and measures the contract; CI downloads that exact release
+([`ci.yml`](.github/workflows/ci.yml)), and [DEPLOYMENTS.md](DEPLOYMENTS.md) records the deployment
+made with it.
 
-CI fails if a change pushes any call past its recorded limit, using
-[Tollcraft](https://github.com/Tollcraft) budget tests and cost lint. `scripts/bench-testnet.sh --check`
-does the same against real transactions.
+### What "Supported" means here
 
-## Security and known limits
+A row below is **Supported** only when something in this repo proves it. The gates that actually run:
 
-- **Not audited.** Testnet only until the audit (ROADMAP P8-01).
-- **No admin path to funds**, tested as [invariant 4](docs/INVARIANTS.md).
-- **Signatures are domain-separated** (`pactwright-verdict-v1:`, `pactwright-usage-v1:`, …), so one can never be replayed as another.
-- **Known limits:**
-  - A frozen buyer trustline blocks `release`.
-  - The admin key itself can't be changed in this version; losing it only blocks verifier rotation, never funds.
-  - The M0 refund mode lives outside this contract and depends on the seller.
-- Report vulnerabilities privately, as described in [SECURITY.md](SECURITY.md).
+- [`ci.yml`](.github/workflows/ci.yml) (`rust` job, on every push to `main` and every pull request):
+  `rustup show` installs the pinned 1.98.1 toolchain, then `cargo fmt --all -- --check`,
+  `cargo clippy --all-targets -- -D warnings`, the stellar-cli 28.1.0 release download,
+  `scripts/build.sh` and `cargo test`.
+- [`cost-lint.yml`](.github/workflows/cost-lint.yml) (every pull request): the Tollcraft cost lint
+  against [budget.toml](budget.toml) must pass with zero findings.
+- [`vendor-hashes.yml`](.github/workflows/vendor-hashes.yml) (pull requests touching `vendor/wasm/**`):
+  the vendored Accensa WASMs must match [`vendor/wasm/SHA256SUMS`](vendor/wasm/SHA256SUMS).
+- [`roadmap-check.yml`](.github/workflows/roadmap-check.yml) (every pull request): a PR that does not
+  touch `ROADMAP.md` fails.
+- [`scorecard.yml`](.github/workflows/scorecard.yml) (push to `main` + weekly schedule): OpenSSF
+  supply-chain checks, published to code scanning and to the badge above.
 
-## Clone, build and deploy
+Two workflows exist but are not continuous gates:
+[`bench-testnet.yml`](.github/workflows/bench-testnet.yml) runs only on `workflow_dispatch` because it
+spends testnet fees, and [`release.yml`](.github/workflows/release.yml) runs only on `v*` tags.
+
+Everything else in this file was verified by hand, on a stated date:
+
+- **90 tests passing** (86 contract, 4 tool): `cargo test --workspace`, measured 2026-10-30.
+- **Tier A budget figures**: measured 2026-10-28, recorded in [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
+- **Tier B network figures and the five bench transactions**: measured 2026-10-28 as real testnet
+  transactions, recorded in [`docs/benchmarks/2026-10-28-testnet.json`](docs/benchmarks/2026-10-28-testnet.json).
+- **The seven MVP scenarios**: run 2026-10-29 by Pactwright-Kit's testnet e2e against this contract;
+  evidence lives in the Kit repo.
+- **Reproducible build**: release asset WASM hash = deployed hash = local `scripts/build.sh` hash,
+  recorded in [DEPLOYMENTS.md](DEPLOYMENTS.md) and in the 2026-10-28 entry of the
+  [ROADMAP](ROADMAP.md) update log.
+
+What is **not** proven here, stated plainly:
+
+- **No Stellar protocol number is recorded in this repo.** `grep` over the markdown, TOML and workflow
+  files finds only generic references to "protocol upgrades"
+  ([budget.toml](budget.toml), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md),
+  [`docs/RUNBOOK-network-upgrade.md`](docs/RUNBOOK-network-upgrade.md) — which asks for the protocol
+  version to be written down *after* an upgrade). The `soroban-sdk` 28.0.0 manifest pin is this repo's
+  whole compatibility statement; do not infer a protocol number from it.
+- No job runs `cargo deny`; [`deny.toml`](deny.toml) holds the license allow-list and must be checked
+  locally with `cargo deny check`.
+- The nightly x402 and facilitator paths run in Pactwright-Kit's CI, not here.
+- Nothing runs on pubnet. `scripts/deploy.sh pubnet` refuses to run while `deployments/pubnet.env`
+  inputs are empty or without `PACTWRIGHT_CONFIRM_PUBNET=yes`.
+- There is no external audit. ROADMAP P8-01 → P8-03 gate any mainnet use.
+
+### Compatibility matrix
+
+| Component / target | Version | Status | Notes |
+|---|---|---|---|
+| Rust toolchain | 1.98.1, `wasm32v1-none` | Supported | Pinned in `rust-toolchain.toml`; `ci.yml` installs it via `rustup show` on every push and PR. |
+| `soroban-sdk` | 28.0.0 (manifest) | Supported | Builds, tests and produces the deployed WASM under this pin in `ci.yml`. |
+| `soroban-env-host` | 28.0.2 (resolved) | Supported | What the WASM-mode budget tests execute against. |
+| `stellar-cli` | 28.1.0 | Supported | `ci.yml` installs this exact release; `DEPLOYMENTS.md` records the deploy. |
+| Cost-lint build toolchain | `nightly-2026-04-16` | Supported | Forced by `cost-lint.yml` because the Action builds its lint library from this repo's root. |
+| Tollcraft `budget-macros` | git `rev b211441…` | Supported | Pinned in `contracts/pact/Cargo.toml`; the budget tests run in `ci.yml`. |
+| Older `soroban-sdk` / older protocol | < 28 | Untested | No pin, no CI job, no measurement recorded in this repo. |
+| Future `soroban-sdk` / protocol upgrades | > 28 | Untested | Budget baselines must be re-measured on upgrade (XC-04, runbook). |
+| Stellar protocol number | not recorded here | Untested | This repo states no protocol version; the SDK pin is the only compatibility statement. |
+| Stellar testnet | `CDUXJJUN…MFEV6` | Supported | Deployed 2026-10-28; every entrypoint exercised by real transactions. Verified by hand and by the manual `bench-testnet.yml`, not by a push gate. |
+| Stellar pubnet / mainnet | — | Not implemented | Follows the audit (P8-03); `deployments/pubnet.env` holds empty inputs only. |
+| M2 escrow mode (this contract) | — | Supported | Verdict, metered, deadline and release paths tested in `ci.yml` and on-chain. |
+| M0 exact-refund mode | — | Not implemented | Lives in Pactwright-Kit seller middleware and the Accensa `RefundVault`. |
+| M1 `upto` partial-payment mode | — | Not implemented | Deliberately excluded; Pactwright ships two modes only (AGENTS.md §3). |
+| Facilitator x402 `pact` scheme | hosted on testnet | Untested | Merged upstream and exercised in Pactwright-Kit's CI, not this repo's. |
+| TypeScript SDK parity (`@pactwright/core`) | via `test-vectors/` | Untested | The vectors live here and `cargo test` asserts them; the SDK's matching assertions run in Pactwright-Kit's CI. |
+
+## 🚀 Quick Start
+
+### 1. Installation
+
+The crates are not published, so this is a source build:
 
 ```bash
-git clone https://github.com/Pactwright/Pactwright-contracts.git && cd Pactwright-contracts
-rustup show                 # pinned toolchain + wasm32v1-none
-scripts/build.sh            # needs stellar-cli 28.1.0; prints the WASM and its sha256
-cargo test                  # 90 tests: contract, fuzzing, integration, budgets, vectors
+git clone https://github.com/Pactwright/Pactwright-contracts.git
+cd Pactwright-contracts
+rustup show              # installs the pinned 1.98.1 toolchain + wasm32v1-none
+cargo test --workspace   # 90 tests, measured 2026-10-30: contract, fuzzing, integration, budgets, vectors
+```
+
+Building the deployed artifact needs [stellar CLI](https://developers.stellar.org/docs/tools/cli)
+28.1.0 — the same release CI installs:
+
+```bash
+scripts/build.sh         # builds the WASM and prints its sha256
+cargo --version          # the rust 1.98.1 pin comes from rust-toolchain.toml
+```
+
+> [!NOTE]
+> No crate in this workspace is published to crates.io — `publish = false` in all three manifests.
+> Install from source as above, or take the WASM, TypeScript bindings and test vectors from the
+> [v0.1.0-rc.1 release](https://github.com/Pactwright/Pactwright-contracts/releases/tag/v0.1.0-rc.1),
+> which CI builds from this repo's [`release.yml`](.github/workflows/release.yml).
+
+### 2. Configuration
+
+Three files carry the settings a reader actually needs to know about:
+
+| File | What it configures |
+|---|---|
+| [`rust-toolchain.toml`](rust-toolchain.toml) | The Rust version and `wasm32v1-none` target every build uses. |
+| [`budget.toml`](budget.toml) | Shared Tollcraft config: target `network`, signing `source` identity, and the Tier B instruction/byte limits each entrypoint may not exceed. Limits are measured × 1.15, rounded up. |
+| [`deployments/testnet.env`](deployments/testnet.env) | Testnet contract IDs, WASM hashes, token, verifier key and `max_pact_ledgers`. Written by `scripts/deploy.sh`; public values only — secrets stay in the stellar CLI keystore. |
+
+The `[profile.release]` block in [Cargo.toml](Cargo.toml) is a measurement input, not cosmetics:
+`opt-level = "z"`, `lto = true`, `codegen-units = 1`, `panic = "abort"` and `overflow-checks = true`
+change the WASM that gets deployed and measured. Figures produced under a different profile are a
+different build and are not comparable to the numbers in this README.
+
+Deploying a testnet instance of your own:
+
+```bash
+stellar network add testnet   # if the network is not configured yet
+scripts/deploy.sh testnet pact
+```
+
+### 3. Usage
+
+**Build, test, and check the cost limits, as CI does:**
+
+```bash
+cargo fmt --all -- --check
+cargo clippy --all-targets -- -D warnings
+scripts/build.sh && cargo test
+cargo test invariant          # the eight invariants by name
+cargo test fuzz               # bolero property and fuzz targets
+cargo test -p pact-sign       # every hash and signature against the published vectors
+```
+
+**Verify the deployment is the code you just built.** Each step needs only this repo and stellar CLI
+28.1.0:
+
+```bash
+# 1. The build is reproducible: compare with the release asset and the deployed contract
+scripts/build.sh                      # prints 748b5dbcc800…35d1a4
+gh release download v0.1.0-rc.1 -R Pactwright/Pactwright-contracts -p '*.sha256' -O -
+
+# 2. The deployed configuration (read-only simulation, no fees)
+stellar contract invoke --network testnet --source <any-funded-identity> --send=no \
+  --id CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6 -- get_config
+
+# 3. The vendored Accensa WASMs still match their recorded hashes
+scripts/check_vendor_hashes.sh
+```
+
+**Measure the real network cost and enforce the recorded limits:**
+
+```bash
+scripts/bench-testnet.sh          # every entrypoint as a real testnet transaction
+scripts/bench-testnet.sh --check  # fails if any value exceeds budget.toml
 ```
 
 | Script | What it does |
@@ -406,61 +673,79 @@ cargo test                  # 90 tests: contract, fuzzing, integration, budgets,
 | [`scripts/release-assets.sh`](scripts/release-assets.sh) | Builds every release asset (run by the `release` workflow on `v*` tags) |
 | [`scripts/bench-testnet.sh`](scripts/bench-testnet.sh) | Runs every call as a real testnet transaction; `--check` enforces the limits |
 | [`scripts/gen_vectors.sh`](scripts/gen_vectors.sh) | Regenerates `test-vectors/` from the contract's hashing code |
+| [`scripts/check_vendor_hashes.sh`](scripts/check_vendor_hashes.sh) | Verifies `vendor/wasm` against `SHA256SUMS` |
 
-## Layout
+### Layout
 
 | Path | What |
 |---|---|
 | [`contracts/pact`](contracts/pact) | The escrow contract: `lifecycle.rs`, `verdict.rs`, `meter.rs`, `hashing.rs`, tests |
+| [`contracts/testutils`](contracts/testutils) | Shared test fixtures |
 | [`test-vectors`](test-vectors) | The source of truth for every hash and signature, shared with the TypeScript SDK |
 | [`tools/pact-sign`](tools/pact-sign) | Pact IDs and signatures from the contract's own hashing code |
 | [`vendor/wasm`](vendor/wasm) | Pinned, hash-checked Accensa `ReceiptAnchor` and `RefundVault` |
+| [`fuzz`](fuzz) | Property and fuzz target notes |
 | [`scripts`](scripts) | Build, deploy, bindings, release assets, testnet benchmark |
 | [`docs`](docs) | PRD, architecture, ADRs, events, invariants, benchmarks, security model, runbook |
+| [`deployments`](deployments) | Machine-readable per-network values, written by `scripts/deploy.sh` |
 | [`DEPLOYMENTS.md`](DEPLOYMENTS.md) | Every deployment with provenance, including retired ones |
 
-## Project status
+Where new files go is spelled out in [`docs/project_structure.md`](docs/project_structure.md).
 
-Phase 1, the contracts MVP, is complete. It covers escrow, verdicts, deadlines, metering,
-receipts, testnet deployment, the release, and cost limits at both levels: local tests and real
-transactions. Next for this repo are the audit and mainnet (Phase 8). [ROADMAP.md](ROADMAP.md)
-tracks progress task by task across all three repos, and every pull request updates it.
+## 📊 Measurements
 
-## FAQ
+Every figure quoted in this README is recorded in a file, not remembered: per-call CPU, memory and
+network fees in [docs/BENCHMARKS.md](docs/BENCHMARKS.md) with the raw testnet report in
+[`docs/benchmarks/2026-10-28-testnet.json`](docs/benchmarks/2026-10-28-testnet.json); enforced limits
+in [budget.toml](budget.toml); contract IDs, WASM hashes, constructor arguments and testnet
+identities — including the retired ones and why they were retired — in
+[DEPLOYMENTS.md](DEPLOYMENTS.md); task-by-task status in [ROADMAP.md](ROADMAP.md) and release notes
+in [CHANGELOG.md](CHANGELOG.md). If a number here and a number in one of those files disagree, the
+file is right and this README has drifted.
 
-**Why not just let the seller refund?** Then a refund depends on the seller. Pactwright supports
-that lighter mode too (M0, through the seller's refund vault). This contract is the mode where
-neither side has to trust the other.
+## 🤝 Community & Maintainers
 
-**Who runs the verifier?** For now, Pactwright does. The verifier's key is fixed per pact, and
-its verdicts follow the open [Witness](https://github.com/fabian416/witness) envelope format. It
-can only sign verdicts; it can never move funds.
+- Issues and task work: [Pactwright-contracts issues](https://github.com/Pactwright/Pactwright-contracts/issues)
+  (pick one labelled `Stellar Wave`; `core-team-only` issues are not open to outside contributors).
+- Documentation hub: [pactwright.github.io/docs](https://pactwright.github.io/docs/)
+- The other repositories: [Pactwright-Kit](https://github.com/Pactwright/Pactwright-Kit) (SDK, verifier,
+  seller middleware) and [Pactwright-studio](https://github.com/Pactwright/Pactwright-studio) (pact pages
+  and receipt anchoring).
+- Design discussion: [docs/adr/](docs/adr/) holds ADR-001…ADR-015, and
+  [docs/ARCHITECTURE_ESSENTIALS.md](docs/ARCHITECTURE_ESSENTIALS.md) states the rules a change must not
+  break.
+<!-- socials: fill in — Discord / X / Telegram links go here once the accounts exist -->
+<!-- demo: fill in — screencast or dashboard link -->
 
-**Can a verdict be wrong?** Yes. That is why the condition is frozen before payment, the verdict
-is bound to it, and partial amounts exist. Verifier dispute milestones are planned for v1
-(ROADMAP P7-05).
-
-**What does an agent need to hold?** Only USDC. Account reserves can be sponsored, and network
-fees for these calls are fractions of a cent.
-
-**Can I reuse this code?** Yes, under the MIT license (see [License](#license)). It is unaudited,
-so read the [security model](docs/SECURITY_MODEL.md) first.
-
-## Built on
-
-| Project | What Pactwright uses | How |
+| Maintainer | Role | Scope |
 |---|---|---|
-| [Accensa](https://github.com/accensa) | `ReceiptAnchor`, `RefundVault`, x402 facilitator | Vendored WASM (v0.2.0); facilitator `pact` scheme |
-| [Tollcraft](https://github.com/Tollcraft) | Cost lint and budget tests | CI Action; `budget-macros` in tests |
-| [Witness](https://github.com/fabian416/witness) | Verdict envelope format, "model reads, code decides" | Format and pattern; code vendored in Pactwright-Kit |
-| [Ficha](https://github.com/beto-rocha-blockchain/ficha-stellar) | The idea of refunding unused units | Re-implemented as signed usage vouchers |
-| [Vespi](https://github.com/andresanemic/vespi), [BookerBob](https://github.com/hustle1hustle/bookerbob-hackmeridian-2026), [Pollar](https://docs.pollar.xyz) | Budget approval, reputation, seedless wallets | Add-ons in Pactwright-Kit (v1, v2) |
+| [`@Pactwright/maintainers`](https://github.com/orgs/Pactwright/teams/maintainers) | Repository maintainers | Everything ([CODEOWNERS](.github/CODEOWNERS)) |
+| [`@Pactwright/core`](https://github.com/orgs/Pactwright/teams/core) | Core team | `lifecycle.rs`, `verdict.rs`, `meter.rs`, `hashing.rs`, `test-vectors/`, `tools/pact-sign/`, `vendor/wasm/`, `deployments/` |
 
-## Contributing
+## 🛠️ Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md). Every pull request updates
-[ROADMAP.md](ROADMAP.md): task status, progress counts and one Update log line. `main` is
-protected, so pull requests need a review and green `rust`, `cost-lint` and `roadmap` checks.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md) and
+[docs/ARCHITECTURE_ESSENTIALS.md](docs/ARCHITECTURE_ESSENTIALS.md) before you build. Report
+vulnerabilities privately as described in [SECURITY.md](SECURITY.md) — not as a public issue.
+
+`main` is protected: changes land through pull requests with one approving review, and the `rust`,
+`cost-lint` and `roadmap` checks must pass. Core-team-only paths need a review from
+`@Pactwright/core`. Use conventional commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`), add tests
+for every behavior change, and write an ADR in `docs/adr/` before changing documented behavior.
+
+**Every pull request updates [ROADMAP.md](ROADMAP.md)** — task status, progress counts, and one
+Update log line, even for a docs or dependency change. The `roadmap-check` job fails a PR that
+doesn't. Phase 1, the contracts MVP, is complete: escrow, verdicts, deadlines, metering, receipts,
+testnet deployment, the release, and cost limits at both tiers. What is left for this repo is the
+audit and mainnet (Phase 8).
+
+### 🧑‍💻 Contributors
+
+<p align="center">
+  <a href="https://github.com/Pactwright/Pactwright-contracts/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=Pactwright/Pactwright-contracts" alt="Contributors">
+  </a>
+</p>
 
 ## License
 
@@ -469,6 +754,16 @@ Pactwright-contracts is released under the **[MIT License](LICENSE)**.
 ```text
 Copyright (c) 2026 Pactwright contributors
 ```
+
+### Built on
+
+| Project | What Pactwright uses | How |
+|---|---|---|
+| [Accensa](https://github.com/accensa) | `ReceiptAnchor`, `RefundVault`, x402 facilitator | Vendored WASM (v0.2.0); facilitator `pact` scheme |
+| [Tollcraft](https://github.com/Tollcraft) | Cost lint and budget tests | CI Action; `budget-macros` in tests |
+| [Witness](https://github.com/fabian416/witness) | Verdict envelope format, "model reads, code decides" | Format and pattern; code vendored in Pactwright-Kit |
+| [Ficha](https://github.com/beto-rocha-blockchain/ficha-stellar) | The idea of refunding unused units | Re-implemented as signed usage vouchers |
+| [Vespi](https://github.com/andresanemic/vespi), [BookerBob](https://github.com/hustle1hustle/bookerbob-hackmeridian-2026), [Pollar](https://docs.pollar.xyz) | Budget approval, reputation, seedless wallets | Add-ons in Pactwright-Kit (v1, v2) |
 
 ### What the MIT license means for you
 
@@ -489,22 +784,23 @@ the MIT notice ([LICENSE](LICENSE)) alongside it.
 ### Third-party code and licenses
 
 These are the components this repository ships, vendors or builds with. Each keeps its own
-license. `cargo-deny` checks the whole dependency tree in CI against an allow-list in
-[`deny.toml`](deny.toml): MIT, Apache-2.0, BSD-3-Clause, ISC and Unicode-3.0.
+license. [`deny.toml`](deny.toml) holds the `cargo-deny` allow-list — MIT, Apache-2.0, BSD-3-Clause,
+ISC and Unicode-3.0 — and `cargo deny check` is run locally, not by a CI job.
 
-| Component | How it is used | Ends up in the deployed WASM | License |
-|---|---|---|---|
-| [soroban-sdk](https://crates.io/crates/soroban-sdk) 28.0.0 | The contract framework | Yes | Apache-2.0 |
-| Accensa [`ReceiptAnchor`, `RefundVault`](https://github.com/accensa/accensa-contracts) v0.2.0 | Vendored WASM in [`vendor/wasm`](vendor/wasm), hash-checked; used in integration tests and deployed as Pactwright's receipt anchor | Separate contract | MIT |
-| Tollcraft [budget-macros](https://github.com/Tollcraft/soroban-budget-assert) | Per-call budget tests | No, tests only | MIT |
-| Tollcraft [soroban-cost-linter](https://github.com/Tollcraft/soroban-cost-linter) | Cost lint GitHub Action | No, CI only | Apache-2.0 |
-| [ed25519-dalek](https://crates.io/crates/ed25519-dalek) 2.2.0 | Signing in tests and `tools/pact-sign` | No | BSD-3-Clause |
-| [stellar-strkey](https://crates.io/crates/stellar-strkey) | Address and key encoding in tests and tools | No | Apache-2.0 |
-| [bolero](https://crates.io/crates/bolero) 0.13.7 | Fuzz and property tests | No | MIT |
-| [Witness](https://github.com/fabian416/witness) verdict format | The envelope format the verifier signs. Its code is vendored in Pactwright-Kit, not here | No | Apache-2.0 |
+| Component | Version (from the manifests) | How it is used | Ends up in the deployed WASM | License |
+|---|---|---|---|---|
+| [soroban-sdk](https://docs.rs/crate/soroban-sdk) | 28.0.0 | The contract framework | Yes | Apache-2.0 |
+| Accensa [`ReceiptAnchor`, `RefundVault`](https://github.com/accensa/accensa-contracts) | v0.2.0 | Vendored WASM in [`vendor/wasm`](vendor/wasm), hash-checked; used in integration tests and deployed as Pactwright's receipt anchor | Separate contract | MIT |
+| Tollcraft [budget-macros](https://github.com/Tollcraft/soroban-budget-assert) | git `rev = b211441…` (not on crates.io) | Per-call budget tests | No, tests only | MIT |
+| Tollcraft [soroban-cost-linter](https://github.com/Tollcraft/soroban-cost-linter) | CI Action, pinned to `c4a98e1…` | Cost lint | No, CI only | Apache-2.0 |
+| [ed25519-dalek](https://docs.rs/crate/ed25519-dalek) | 3.0.0 (a 2.2.0 copy resolves transitively via soroban-sdk) | Signing in tests and `tools/pact-sign` | No | BSD-3-Clause |
+| [stellar-strkey](https://docs.rs/crate/stellar-strkey) | 1.0.0 (0.0.13/0.0.16 resolve transitively) | Address and key encoding in tests and tools | No | Apache-2.0 |
+| [bolero](https://docs.rs/crate/bolero) | 0.13 (resolves to 0.13.7) | Fuzz and property tests | No | MIT |
+| [Witness](https://github.com/fabian416/witness) verdict format | format only | The envelope format the verifier signs. Its code is vendored in Pactwright-Kit, not here | No | Apache-2.0 |
 
 The deployed contract contains only this repo's code and soroban-sdk, under MIT and Apache-2.0
-respectively. Everything else is used to test, sign or measure it.
+respectively. Everything else is used to test, sign or measure it. [NOTICE](NOTICE) lists every
+project Pactwright builds on and its license.
 
 ### Ideas, without code
 
@@ -514,8 +810,6 @@ anyway:
 - **Ficha** (MIT): refunding unused units, re-implemented here as signed usage vouchers.
 - **Vespi** (Apache-2.0) and **BookerBob** (MIT): budget approval and reputation, planned as Pactwright-Kit add-ons.
 - **Pollar**: integrated only through its public SDK. Pollar Studio has no license file, so none of its code is used.
-
-[NOTICE](NOTICE) lists every project Pactwright builds on and its license.
 
 ### The other Pactwright repositories
 
