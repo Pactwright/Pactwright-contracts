@@ -619,7 +619,7 @@ JSON logs with `pact_id`; metrics per stage (latency, failures, verdict mix, spo
 | ADR-013 | One receipt leaf per terminal transition | Accepted (v0.2) |
 | ADR-014 | Single verifier key in `Config`, snapshotted per pact | Accepted (v0.2), replaces registry |
 | ADR-015 | Hashing and test vectors owned by `pactwright-contracts` | Accepted (v0.2) |
-| ADR-016 | Facilitator `pact` scheme and `/pact/submit` (repo-local copy in `Pactwright-Kit/docs/adr/`, the same decision as ADR-004) | Accepted — duplicate number, tracked for reconciliation |
+| ADR-016 | **Retired, unused.** A `Pactwright-Kit` copy of ADR-004 (facilitator `pact` scheme) was numbered 016; it is now filed under its own number as `Pactwright-Kit/docs/adr/ADR-004-facilitator-pact-scheme.md`. 016 stays retired — ADR-017 was numbered past it for this reason, so reusing it would recreate the collision | Retired (2026-10-31, Kit issue 112) |
 | ADR-017 | M1 (`upto`) stays out of scope; ROADMAP P9-06 dropped with a re-open trigger | Accepted (2026-10-31) |
 
 ## 16. Design review log (v0.1 → v0.2)
