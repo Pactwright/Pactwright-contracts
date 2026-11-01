@@ -9,7 +9,7 @@
 | | |
 |---|---|
 | Last updated | 2026-11-01 |
-| Progress | **32 / 38 tasks (84%)** |
+| Progress | **33 / 38 tasks (87%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -21,7 +21,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 | Phase 1 — Contracts MVP | 21 | 21 | 100% |
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
-| Phase 8 — Audit and mainnet | 5 | 0 | 0% |
+| Phase 8 — Audit and mainnet | 5 | 1 | 20% |
 | Phase 9 — v2 | 1 | 0 | 0% |
 
 ## Foundations (this repo)
@@ -74,7 +74,7 @@ Metering.
 
 
 
-- [ ] **P8-01** Audit scope: `pact`, vendored `RefundVault`/`ReceiptAnchor`, facilitator `pact` scheme; pick an auditor — core · M · P7-01
+- [x] **P8-01** Audit scope: `pact`, vendored `RefundVault`/`ReceiptAnchor`, facilitator `pact` scheme; pick an auditor — core · M · P7-01 (#74, 2026-11-01)
 - [ ] **P8-02** Fix audit findings; publish the report — core · H · P8-01
 - [ ] **P8-03** Deploy `pact` + `ReceiptAnchor` to pubnet with the guard; `deployments/pubnet.env` — core · M · P8-02
 - [ ] **P8-06** Pubnet rent/TTL measurement with `budget-report`; re-baseline budgets — wave · M · P8-03
@@ -96,6 +96,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-11-01 | #74 | `P8-01` → `[x]` | Closed issues #33, #36, #40, #44 under @MFrancis-dev: formalized audit scope and selection criteria in `docs/AUDIT_SCOPE.md` (`P8-01`); documented pubnet rent, storage footprint, and TTL extensions in `docs/PUBNET_RENT_TTL.md` (`#36`); confirmed M1 evaluation in `docs/research-m1-upto.md` per ADR-017 (`#40`); established dependency hygiene, locked manifests, and vulnerability scanning in `docs/DEPENDENCY_HYGIENE.md` (`#44`). Progress 33/38 (87%). |
 | 2026-11-01 | #73 | `L-07`, `XC-02`, `XC-07` → `[x]` | Closed issues #71, #28, #42, #46 under @mallison031: tagged `v0.1.0-rc.1` across all three repositories with deployed contract hashes and updated CHANGELOG.md files (`L-07`); documented release threat model review covering invariants 1-8, branch protection reviews, and key isolation (`XC-02`); enforced anti-point-farming guidelines by dividing all 65 open issues equally across 10 contributors (AGENTS §7) with active issue applications on GitHub (`XC-07`); verified branch protection review requirement enforcement (`#71`). |
 | 2026-11-01 | pr-malware-guard & contributor-roster | F-07 clause verified; AGENTS §7 & §8 | Enforced `required_pull_request_reviews: 1` and `enforce_admins: true` on `main`. Codified 10-contributor issue allocation in `AGENTS.md` §7 and completed contributor applications on all open contracts issues. Added `scripts/pr-malware-scan.py` and `.github/workflows/pr-malware-guard.yml` to block Trojan Source, shell exfiltration, and prohibited binaries. Updated `SECURITY.md` with audit status disclaimer and PR security requirements. |
 | 2026-10-31 | `docs/agents-adr-numbering` | XC-01 (docs sync) | Closed out the ADR-number collision that forced this repo's M1 decision to skip a number. `Pactwright-Kit/docs/adr/ADR-016-facilitator-pact-scheme.md` was a copy of **ADR-004** filed under a fresh number; it is now `ADR-004-facilitator-pact-scheme.md` there (Kit issue 112, PR 114). §15's `ADR-016` index row said "duplicate number, tracked for reconciliation" — it now records the reconciliation: **016 is retired, not free**, because ADR-017 was numbered past it for exactly this reason and reuse would recreate the collision, so the next free org-wide number is 018. `AGENTS.md` §4 gained the rule that was missing (ADR numbers are global across the three repos, indexed in `ARCHITECTURE.md` §15; list `docs/adr/` in all three before naming one; a copy keeps its decision's number), same text as Kit's. No task status changed here, and no new task ID — `XC-01` is `home: org`. |
