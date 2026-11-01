@@ -96,6 +96,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-11-01 | #79 | — | Embedded the Pactwright product launch film and animated preview on the repository README, linked to the 1080p release asset. |
 | 2026-11-01 | #77 | XC-08, XC-09, XC-10, XC-11 | Closed issues #47, #48, #49, #50 under @YazarAyobami: verified NOTICE accuracy and integration alignment (XC-08); implemented shared docs sync script `scripts/sync-shared-docs.sh` (XC-09); updated CHANGELOG.md for release tracking (XC-10); logged release communications in `docs/partners.md` (XC-11). |
 | 2026-11-01 | #78 | — (F-07) | OpenSSF Scorecard hardening: pin all GitHub Actions to verified immutable commit SHAs with version comments across all workflows, enforce least privilege permissions (contents: read, empty for scorecard), and add GitHub CodeQL SAST scanning workflow. |
 | 2026-11-01 | #76 | L-06, P7-16, P7-18, P8-10 | Closed issues #27, #30, #32, #39 under @TemiMustapha: compiled SCF tranche 1 submission package in `docs/scf/TRANCHE_1_SUBMISSION.md` (L-06); published hackathon Scale-path goals in `README.md` (P7-16); compiled SCF tranche 2 submission in `docs/scf/TRANCHE_2_SUBMISSION.md` (P7-18); compiled SCF tranche 3 submission in `docs/scf/TRANCHE_3_SUBMISSION.md` (P8-10). |
