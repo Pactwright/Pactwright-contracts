@@ -2,6 +2,9 @@ name: cost-lint
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   cost-lint:
     runs-on: ubuntu-latest
@@ -12,7 +15,7 @@ jobs:
       # Keep in sync with the Action's `toolchain` input default.
       RUSTUP_TOOLCHAIN: nightly-2026-04-16
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       # Pinned to the Tollcraft main commit that passed on PR #3 (2026-10-28). The only
       # release, v0.1.0, predates fixes this workflow relies on. Bump deliberately.
       - uses: Tollcraft/soroban-cost-linter@c4a98e1b7d893b2538b68be8c10f7aa4cd499082

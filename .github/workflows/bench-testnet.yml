@@ -11,13 +11,16 @@ name: bench-testnet
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   bench:
     runs-on: ubuntu-latest
     env:
       STELLAR_CLI_VERSION: 28.1.0
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Require secrets
         env:
           DEPLOYER: ${{ secrets.TESTNET_DEPLOYER_SECRET }}
@@ -44,7 +47,7 @@ jobs:
           printf 'secret_key = "%s"\n' "$VERIFIER" > "$dir/pactwright-verifier.toml"
           chmod 600 "$dir"/*.toml
       - run: scripts/bench-testnet.sh --check
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         if: always()
         with:
           name: bench-testnet
