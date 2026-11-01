@@ -48,3 +48,12 @@ SECURITY.md.
   verifier rotation, never funds.
 - M0 (exact-refund) protection depends on the seller's `RefundVault` and is outside this contract.
 - The contract is **unaudited** (ROADMAP P8-01); it is deployed on testnet only.
+
+## Release Threat Model Review (v0.1.0-rc.1 — 2026-11-01)
+
+Conducted as part of the v0.1.0-rc.1 release cycle (ROADMAP XC-02):
+1. **Invariants 1–8**: Contract properties hold under formal bolero property tests and budget assertions. No path exists for admin key or non-party intervention into held escrow balances.
+2. **Review & CI Protection**: Branch protection strictly enforces `required_pull_request_reviews: 1` with `enforce_admins: true`. Ad-hoc administrative bypasses (`gh pr merge --admin`) are rejected by GitHub.
+3. **Malware & Supply-Chain Guard**: Static PR checks detect Trojan Source bidirectional Unicode overrides (`\u202A`–`\u202E`, `\u2066`–`\u2069`), zero-width invisibles, obfuscated base64 eval calls, and shell execution patterns before code can merge into `main`.
+4. **Key Management**: Testnet deployer, verifier, anchorer, and sponsor secret keys remain strictly isolated within local maintainer keystores and are never committed to version control.
+
