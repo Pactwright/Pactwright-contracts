@@ -34,3 +34,14 @@ Pollar Studio source repository does not bundle an OSI license file, restricting
   2. **Storefront Template (P9-05)**: Pactwright is authorized to ship an open-source storefront template implementing Pollar-compatible checkout flows, provided all code is independently authored without copying proprietary Pollar Studio components.
   3. **Zero Proprietary Code Rule**: In strict compliance with `AGENTS.md` and `NOTICE`, zero proprietary code from Pollar Studio is copied or vendored into Pactwright repositories.
 - **Status**: **Fully Approved & Executed**.
+
+---
+
+## 3. Partner Updates on Release (XC-11)
+
+Release updates sent to the five HackMeridian partner teams documenting integrated milestone achievements:
+
+| Release | Date | Partners Updated | Updates & Milestone Highlights Communicated |
+|---|---|---|---|
+| **`v0.1.0-rc.1`** | 2026-10-28 | Witness, Vespi, BookerBob, Ficha, Pollar | Testnet contracts live (`CDUXJJUN...` and `CAEO5GBC...`); integration tests verified with ReceiptAnchor and Witness envelope schemas; SDK pre-release published; Studio explorer live. |
+
