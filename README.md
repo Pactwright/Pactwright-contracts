@@ -41,6 +41,13 @@
 | Design | [PRD](docs/PRD.md) · [Architecture](docs/ARCHITECTURE.md) · [15 ADRs](docs/adr/) |
 | License | [MIT](LICENSE), with every third-party license listed |
 
+### 🎯 Hackathon Scale-Path Goals (PRD §9)
+
+Pre-declared targets for the Stellar Hackathon Scale path:
+1. **First M2 pact settled on mainnet**: Settle the first verifiable AI agent purchase on Stellar mainnet post-audit.
+2. **Autonomous buyer dispute & escrow recovery**: An AI agent buys compute/data through MCP, receives a cryptographic DENY, and recovers its locked escrow on stage without human or seller intervention.
+3. **Metered pay-per-minute demo**: Live dynamic streaming settlement using signed `UsageVoucher`s with Pollar principal funding and Vespi budget approval.
+
 ## 📖 Overview
 
 This repository is the on-chain half of Pactwright: the `pact` Soroban escrow contract for
