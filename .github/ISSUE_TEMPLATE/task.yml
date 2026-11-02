@@ -31,7 +31,22 @@ body:
     id: acceptance
     attributes:
       label: Acceptance criteria
-      description: Checkable conditions for "done".
+      description: Checkable conditions for "done", one checkbox each. Every CI gate passing and the ROADMAP.md update are always required.
+      value: |
+        - [ ] 
+        - [ ] Every CI gate passes
+        - [ ] `ROADMAP.md` updated: task status, progress counts, one Update log line
+    validations:
+      required: true
+  - type: textarea
+    id: tech-stack
+    attributes:
+      label: Tech stack
+      description: Languages, versions and tools the change touches.
+      value: |
+        - Rust 1.98.1, `soroban-sdk` 28.0.0, target `wasm32v1-none`
+        - `stellar-cli` 28.1.0 for build and deploy
+        - Tests: `cargo test`, `#[budget_*]` assertions, Tollcraft cost-lint
     validations:
       required: true
   - type: textarea
