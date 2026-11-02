@@ -95,9 +95,25 @@ fn open_rejects_bad_deadlines() {
     inverted.settle_deadline = now + 99;
     assert_eq!(f.pact.try_open(&inverted), Err(Ok(Error::BadDeadlines)));
 
-    let mut too_long = f.params(3);
+    let mut equal = f.params(3);
+    equal.verdict_deadline = now + 100;
+    equal.settle_deadline = now + 100;
+    assert_eq!(f.pact.try_open(&equal), Err(Ok(Error::BadDeadlines)));
+
+    let mut too_long = f.params(4);
     too_long.settle_deadline = now + MAX_PACT_LEDGERS + 1;
     assert_eq!(f.pact.try_open(&too_long), Err(Ok(Error::BadDeadlines)));
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #7)")]
+fn constructor_rejects_zero_max_pact_ledgers() {
+    let env = Env::default();
+    env.mock_all_auths();
+    let admin = Address::generate(&env);
+    let token = Address::generate(&env);
+    let verifier = public_key(&env, &signing_key(1));
+    env.register(crate::PactContract, (admin, token, verifier, 0u32));
 }
 
 #[test]
