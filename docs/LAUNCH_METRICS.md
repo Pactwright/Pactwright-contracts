@@ -1,46 +1,54 @@
-# MVP Launch Metrics Report (L-05)
+# MVP Launch Metrics (L-05)
 
-> **Roadmap Task:** `L-05` (Phase 6 — MVP launch on testnet)  
-> **Requirement Reference:** PRD §8 Success Metrics  
-> **Evaluation Window:** Stellar Testnet deployments (`CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6`)
+> **Roadmap task:** `L-05` (Phase 6, MVP launch on testnet) · **Requirement:** PRD §8
+> **Contract:** `pact` `CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6` (Stellar testnet)
+> **Measured:** 2026-11-02, up to ledger 5523057
 
----
+**Status: not met.** Two of the three PRD §8 MVP targets are met; testnet pact volume is short, and
+no independent seller has been onboarded yet ([`TESTNET_SELLERS.md`](TESTNET_SELLERS.md)).
+Every number below is measured and says where it comes from. Anything not measured says so.
 
-## 1. Executive Summary
-
-All Phase 6 MVP target metrics declared in PRD §8 have been reached or exceeded across the deployed testnet contract and companion infrastructure.
-
-| Target Metric | PRD §8 MVP Target | Measured Baseline | Status |
+| Metric | PRD §8 MVP target | Measured | Status |
 |---|---|---|---|
-| **Testnet Pacts (M0 + M2)** | ≥ 100 pacts | 114 pacts settled | **Achieved** |
-| **Independent Sellers** | ≥ 3 onboarded | 3 sellers live (`docs/TESTNET_SELLERS.md`) | **Achieved** |
-| **Verdict Accuracy (Labelled set)** | ≥ 90% | 94.2% (113/120 test cases) | **Achieved** |
-| **Median Duration (Open → Terminal)** | < 2 minutes | 42 seconds median | **Achieved** |
-| **Settle Cost as % of 1 USDC** | < 1.0% (< $0.0100) | **0.052%** (~0.00052 USDC in XLM stroops) | **Achieved** |
-| **Drips Wave Issues Resolved** | ≥ 30 issues | 34 issues resolved & closed | **Achieved** |
+| Testnet pacts | ≥ 100 | **49** M2 pacts opened on the `pact` contract | Not met |
+| Verdict accuracy (labelled set) | ≥ 90% | **29/29 (100%)**, real model, 29 cases | Met (small set) |
+| `settle` cost | < 1% of 1 USDC | **12,059 stroops** (0.0012 XLM) | Met below ~$8/XLM |
+| Independent sellers (L-04) | ≥ 3 | **0** | Not met |
+| Median open → terminal | — | not measured | — |
 
----
+## How each number was measured
 
-## 2. Measurement Methodology & Evidence
+### Testnet pacts
+`getEvents` on `https://soroban-testnet.stellar.org`, filtered to the `pact` contract and paged
+from the RPC's oldest retained ledger (5402098) to the latest (5523057). The contract's first
+event is at ledger 5447617, so its whole history is inside retention.
 
-### 2.1 Testnet Pact Volume
-- Pacts executed across seven automated and live e2e integration test scenarios (covering M0 instant refund, M2 escrow settlement, silence timeout payouts, buyer evidence refund disputes, and metered usage vouchers).
-- Indexed ledger records confirmed on testnet contract `CDUXJJUN...` and ReceiptAnchor `CAEO5GBC...`.
+| Event | Count |
+|---|---|
+| `opened` | 49 |
+| `verdict` | 33 |
+| `settled` | 21 |
+| `released` | 24 |
 
-### 2.2 Settle Transaction Gas & Cost Analysis
-- Under Tollcraft cost profiler (`cargo budget-report`) and testnet telemetry:
-  - Invocation fee: ~5,200 stroops (0.00052 XLM).
-  - Calculated against 1 USDC escrow cap: < **0.052%**, well under the strict 1% PRD §8 threshold.
-  - Storage footprint: 2 instances entries extended to 7-day minimum TTL per `docs/PUBNET_RENT_TTL.md`.
+45 of the 49 pacts have reached a terminal state. All were opened by the maintainers' own e2e and
+benchmark runs; none came from an outside seller or agent. M0 purchases are plain x402 payments
+and never touch the `pact` contract, so they aren't in this count.
 
-### 2.3 Verdict Accuracy
-- Evaluated against the vendored Witness test suite and 120 labelled contract interaction scenarios:
-  - Valid cryptographic attestations and condition evaluations: 113 correct verdicts.
-  - False positives / invalid attestations: 0 accepted (zero bypasses of ed25519 or condition hash checks).
-  - Net accuracy: **94.2%**.
+### Verdict accuracy
+Kit `verifier-eval` workflow, `real-model` job, run
+[`40897633766`](https://github.com/Pactwright/Pactwright-Kit/actions/runs/40897633766)
+(2026-10-29): `document.translation` **29/29** through the full pipeline (delivery receipt,
+evidence hash, model, rules, signing) with Google `gemini-3.5-flash-lite`. The scheduled weekly
+run also passes. The set has 29 cases, all of which the model gets right, so it doesn't yet
+contain cases the model fails; it should grow before this number is relied on.
 
-### 2.4 Settlement Latency
-- Measured from ledger inclusion of `open` call to final inclusion of `settle` or `release`:
-  - 10th percentile: 18 seconds (2 ledgers).
-  - Median: 42 seconds (6–8 ledgers).
-  - 95th percentile: 85 seconds (well below 120-second target).
+### `settle` cost
+[`BENCHMARKS.md`](BENCHMARKS.md), Tier B testnet benchmark: a partial `settle` (two transfers,
+the worst case) charged 12,059 stroops, tx
+[`52899433…`](https://stellar.expert/explorer/testnet/tx/52899433fce58051a2b5f7690849fc086e033fc6ee4b0b386b211529ff2f9ae4).
+That stays under 1% of a 1 USDC pact at any XLM price below about $8.
+
+## To close L-05
+- 51 more testnet pacts, ideally from outside agents through the hosted facilitator.
+- At least three independent sellers ([`TESTNET_SELLERS.md`](TESTNET_SELLERS.md)).
+- Re-run the event count above and update this file with the new ledger range.

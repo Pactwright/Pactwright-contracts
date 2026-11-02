@@ -1,4 +1,7 @@
-# Stellar Community Fund (SCF) — Tranche 2 Milestone Submission
+# Stellar Community Fund (SCF) — Tranche 2 Milestone Submission (draft)
+
+> **Draft, not submitted.** Nothing in this file has been sent to the Stellar Community Fund.
+> It depends on `P7-17` (v1 metrics: 1,000 testnet pacts, 250 mainnet M0 pacts, 15 sellers, 97% accuracy), which is not met.
 
 > **Project:** Pactwright  
 > **Milestone:** Tranche 2 (v1 Release — Metering, Disputes, Dashboards & Add-ons)  
@@ -13,8 +16,8 @@ Pactwright v1 expands core escrow into dynamic real-time agentic resource settle
 1. **Metered Purchases (`UsageVoucher`)**:
    - Implemented `close_meter` entrypoint verifying non-decreasing units and signed nonces, settling exact consumed compute while releasing excess escrow back to buyer (PRD §6.2, ADR-010).
 2. **Partner Adapters**:
-   - `gate-vespi` budget approval adapter for human-in-the-loop agent authorization (P7-12).
-   - `wallet-pollar` seedless principal funding adapter using `@pollar/sdk` (P7-13).
+   - `gate-vespi` budget approval adapter for human-in-the-loop agent authorization (P7-12), not yet tested against Vespi's API.
+   - `wallet-pollar` seedless principal funding adapter using `@pollar/sdk` (P7-13), not yet tested against Pollar's API.
 3. **Evidence Privacy & Compliance**:
    - Configurable redaction hooks, short retention windows, and privacy disclosure guarantees preventing sensitive LLM inference leakage (P7-09).
 4. **Seller Key Isolation**:
