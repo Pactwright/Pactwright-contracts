@@ -96,6 +96,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-11-02 | #80 | P8-01 | Aligned AUDIT_SCOPE.md with contract implementation: corrected state enums (Funded, Allowed, Denied, Settled, Released), types, and error codes; accurately documented precondition subtraction and saturating math; added cross-deployment signature replay and metered key attack vectors to threat model. |
 | 2026-11-01 | #79 | — | Embedded the Pactwright product launch film and animated preview on the repository README, linked to the 1080p release asset. |
 | 2026-11-01 | #77 | XC-08, XC-09, XC-10, XC-11 | Closed issues #47, #48, #49, #50 under @YazarAyobami: verified NOTICE accuracy and integration alignment (XC-08); implemented shared docs sync script `scripts/sync-shared-docs.sh` (XC-09); updated CHANGELOG.md for release tracking (XC-10); logged release communications in `docs/partners.md` (XC-11). |
 | 2026-11-01 | #78 | — (F-07) | OpenSSF Scorecard hardening: pin all GitHub Actions to verified immutable commit SHAs with version comments across all workflows, enforce least privilege permissions (contents: read, empty for scorecard), and add GitHub CodeQL SAST scanning workflow. |
