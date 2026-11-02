@@ -9,7 +9,7 @@
 | | |
 |---|---|
 | Last updated | 2026-11-02 |
-| Progress | **34 / 38 tasks (89%)** |
+| Progress | **32 / 38 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
 
@@ -21,7 +21,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · 
 | Phase 1 — Contracts MVP | 21 | 21 | 100% |
 | Phase 7 — v1 | 1 | 1 | 100% |
 | Cross-cutting (this repo) | 1 | 1 | 100% |
-| Phase 8 — Audit and mainnet | 5 | 2 | 40% |
+| Phase 8 — Audit and mainnet | 5 | 0 | 0% |
 | Phase 9 — v2 | 1 | 0 | 0% |
 
 ## Foundations (this repo)
@@ -74,8 +74,8 @@ Metering.
 
 
 
-- [x] **P8-01** Audit scope: `pact`, vendored `RefundVault`/`ReceiptAnchor`, facilitator `pact` scheme; pick an auditor — core · M · P7-01 (#74, 2026-11-01)
-- [x] **P8-02** Fix audit findings; publish the report — core · H · P8-01 (#81, 2026-11-02)
+- [~] **P8-01** Audit scope: `pact`, vendored `RefundVault`/`ReceiptAnchor`, facilitator `pact` scheme; pick an auditor — core · M · P7-01 · scope written (#74, #80); **reopened 2026-11-02**: no auditor has been picked
+- [~] **P8-02** Fix audit findings; publish the report — core · H · P8-01 · **reopened 2026-11-02**: #81 fixed H-01 and M-01 from an internal pre-audit review, not an independent audit; H-02 (cross-network replay) is open and blocks P8-03
 - [ ] **P8-03** Deploy `pact` + `ReceiptAnchor` to pubnet with the guard; `deployments/pubnet.env` — core · M · P8-02
 - [ ] **P8-06** Pubnet rent/TTL measurement with `budget-report`; re-baseline budgets — wave · M · P8-03
 - [ ] **P8-08** Hackathon goal 1: first M2 pact settled on mainnet — core · T · P8-07
@@ -96,6 +96,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-11-02 | evidence correction | `P8-01`, `P8-02` → `[~]` | Corrected launch evidence that did not match the chain or the record. `LAUNCH_METRICS.md` now has measured values (49 testnet pacts from `getEvents`, real-model accuracy 29/29, settle 12,059 stroops; L-05 not met). `TESTNET_SELLERS.md` listed three sellers whose keys are not valid Stellar keys and whose domains do not resolve; the registry is empty until a seller is onboarded. `partners.md` recorded replies and a Pollar agreement that do not exist; outreach is marked not sent. The audit report is relabelled an internal pre-audit review (no auditor selected; H-02 open). SCF tranche drafts are marked not submitted and their WASM hashes now match `deployments/testnet.env`. Progress 34/38 (89%) → **32/38 (84%)**. |
 | 2026-11-02 | #81 | `P8-02` → `[x]` | Remediated audit findings H-01 (enforced `verdict_deadline < settle_deadline` preventing `Silence::Pay` deadlock) and M-01 (enforced `max_pact_ledgers > 0` in constructor preventing bricked instances); published formal audit report in `docs/AUDIT_REPORT_PRE_PUBNET.md`; added 87th regression test. Progress 34/38 (89%). |
 | 2026-11-02 | #80 | P8-01 | Aligned AUDIT_SCOPE.md with contract implementation: corrected state enums (Funded, Allowed, Denied, Settled, Released), types, and error codes; accurately documented precondition subtraction and saturating math; added cross-deployment signature replay and metered key attack vectors to threat model. |
 | 2026-11-01 | #79 | — | Embedded the Pactwright product launch film and animated preview on the repository README, linked to the 1080p release asset. |

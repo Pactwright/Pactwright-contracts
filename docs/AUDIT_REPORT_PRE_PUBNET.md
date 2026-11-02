@@ -1,9 +1,14 @@
-# Formal Security Audit Report: `contracts/pact`
+# Internal Pre-Audit Review: `contracts/pact`
+
+> **This is not an independent audit.** It is a review by the Pactwright maintainers, written to
+> prepare for one. No audit firm has been selected or engaged yet (`P8-01`), so `P8-02` ("fix the
+> audit findings; publish the report") stays open until an independent audit's findings are fixed
+> and its report is published. **H-02 is unresolved and blocks the pubnet deploy (`P8-03`).**
 
 **Target:** `Pactwright/Pactwright-contracts` (`contracts/pact` at commit `c99cf0c`)  
-**Auditor Methodology:** Line-by-line manual review of the pact state machine, Soroban TTL & state archival rules, cryptographic key trust models, and cross-language byte-for-byte hashing parity (`hashing.rs` ↔ `tools/pact-sign` ↔ `hashing.ts`).  
+**Review method:** Line-by-line manual review of the pact state machine, Soroban TTL & state archival rules, cryptographic key trust models, and cross-language byte-for-byte hashing parity (`hashing.rs` ↔ `tools/pact-sign` ↔ `hashing.ts`).  
 **Scope:** ~610 lines of Soroban Rust (`lifecycle.rs`, `verdict.rs`, `meter.rs`, `hashing.rs`, `storage.rs`, `admin.rs`, `types.rs`, `errors.rs`, `events.rs`, `lib.rs`), deployment configuration, and off-chain hashing implementations.  
-**Satisfies Roadmap Milestone:** **P8-01** (Audit scope & preliminary audit findings) and **P8-02** (Fix audit findings & publish report).
+**Roadmap:** input to **P8-01** (audit scope) and **P8-02** (fix findings); neither is closed by this review.
 
 ---
 
@@ -12,7 +17,7 @@
 | ID | Title | Severity | Status |
 |---|---|---|---|
 | **H-01** | `Silence::Pay` Deadline Collision: Seller Permanently Locked Out When `verdict_deadline == settle_deadline` | **High** | **Resolved** (enforced `verdict_deadline < settle_deadline`) |
-| **H-02** | Missing Contract Address and Network Passphrase in Domain Hashing (Cross-Deployment & Cross-Network Replay) | **High** | Logged for P8-03 (pre-pubnet binding) |
+| **H-02** | Missing Contract Address and Network Passphrase in Domain Hashing (Cross-Deployment & Cross-Network Replay) | **High** | **Open**: must be fixed before the pubnet deploy (P8-03) |
 | **M-01** | Unvalidated `__constructor` Parameters (`max_pact_ledgers = 0` Permanently Bricks Contract Instance) | **Medium** | **Resolved** (constructor validation added) |
 | **M-02** | Metered Escrow Capital Lockup: Buyer Has No Early Exit If Seller Fails to Deliver or Disappears | **Medium** | Documented Operational Constraint |
 | **L-01** | Inconsistent Trailing Colon in Domain Separation Constants (`RECEIPT_DOMAIN`) | **Low** | Acknowledged Wire Compatibility |
