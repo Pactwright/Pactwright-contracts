@@ -14,6 +14,9 @@ pub(crate) fn init(
     verifier: BytesN<32>,
     max_pact_ledgers: u32,
 ) {
+    if max_pact_ledgers == 0 {
+        soroban_sdk::panic_with_error!(env, Error::BadDeadlines);
+    }
     storage::write_config(
         env,
         &Config {

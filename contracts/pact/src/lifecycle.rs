@@ -38,7 +38,7 @@ pub(crate) fn open(env: &Env, params: OpenParams) -> Result<BytesN<32>, Error> {
     let now = env.ledger().sequence();
     let latest_settle = now.saturating_add(config.max_pact_ledgers);
     if now >= params.verdict_deadline
-        || params.verdict_deadline > params.settle_deadline
+        || params.verdict_deadline >= params.settle_deadline
         || params.settle_deadline > latest_settle
     {
         return Err(Error::BadDeadlines);
