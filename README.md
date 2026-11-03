@@ -42,7 +42,7 @@
 |---|---|
 | `pact` contract (testnet) | [`CDUXJJUN…MFEV6`](https://stellar.expert/explorer/testnet/contract/CDUXJJUNYFILEYHE3LITANJEKCDFERNAABOSG75OWATFVM776BCMFEV6) |
 | Its WASM hash | [`748b5dbcc800…35d1a4`](DEPLOYMENTS.md), identical in the [release](https://github.com/Pactwright/Pactwright-contracts/releases/tag/v0.1.0-rc.1), on testnet and in a local build |
-| Receipt anchor (testnet) | [`CAEO5GBC…LNJ2`](https://stellar.expert/explorer/testnet/contract/CAEO5GBC3ULRC5RYBSCSOXLNXHU2HZAHNW5HY5LZM3DIPFMX357ILNJ2), Accensa `ReceiptAnchor` v0.2.0 |
+| Receipt anchor (testnet) | [`CCLPJIYC…EDXZ`](https://stellar.expert/explorer/testnet/contract/CCLPJIYCSZXAK5HQNVOBO634YGATAL7ASE6HZRFQLKB3TJHMK7NCEDXZ), Accensa `ReceiptAnchor` v0.2.0 |
 | Payment token | USDC ([`CBIELTK6…DAMA`](https://stellar.expert/explorer/testnet/contract/CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA), Circle testnet) |
 | Measured cost | [docs/BENCHMARKS.md](docs/BENCHMARKS.md): local and real-transaction numbers per call |
 | Trust model | [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) |
