@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       # Pinned to the Tollcraft main commit that passed on PR #3 (2026-10-28). The only
       # release, v0.1.0, predates fixes this workflow relies on. Bump deliberately.
-      - uses: Tollcraft/soroban-cost-linter@c4a98e1b7d893b2538b68be8c10f7aa4cd499082
+      - uses: Tollcraft/soroban-cost-linter@2a0c784dd8974298e4054e55e325e3e87c5d5195
         with:
           config: budget.toml
           toolchain: nightly-2026-04-16
