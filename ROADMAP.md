@@ -8,7 +8,7 @@
 
 | | |
 |---|---|
-| Last updated | 2026-11-02 |
+| Last updated | 2026-11-09 |
 | Progress | **32 / 38 tasks (84%)** |
 
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done · `[-]` dropped (ADR) · owner `core`/`wave` · size `T`/`M`/`H`.
@@ -96,6 +96,7 @@ Ongoing work whose issues live in this repo.
 
 | Date | PR / change | Tasks | Summary |
 |---|---|---|---|
+| 2026-11-09 | `chore/update-readme-brand` | — | Update README header and brand asset to use the canonical transparent mark matching the organization profile avatar. |
 | 2026-11-03 | anchorer rotation | — | The testnet anchorer key `GAKQTGNQ…M4KZ` was exposed: its secret sat in the wrong setting on the Studio host and was printed in a maintainer session. `ReceiptAnchor` has no admin transfer, so a new instance `CCLPJIYC…EDXZ` was deployed from the same vendored WASM (`d7ec929b…`) with admin `GBWCL7DD…5Y5F`. Studio re-anchored all 42 receipts into its batch 1 (`72017e67…`). A certificate verifies on-chain; a tampered leaf and the old anchor both fail. `CAEO5GBC…LNJ2` is retired; backups of the replaced batch rows are kept off-repo. |
 | 2026-11-03 | render retired | — | Testnet hosting moved off Render. The verifier and the x402 facilitator run on Vercel (kit#138) and Studio too (studio#73), with Studio and the verifier on a Neon Postgres. The Render services and database are suspended, and `render.yaml` is removed (kit#162, studio#95). The deployed contracts are unchanged. AGENTS §8 now names `vercel.json` and `deploy/` as the protected deployment configs. |
 | 2026-11-02 | wave readiness | — | README trimmed from 803 to 312 lines; the moved sections are kept unchanged in `docs/OVERVIEW.md`. Maintainer table names the lead maintainer and the Telegram and Discord contacts. The Contributing text no longer says PRs need an approving review (required approvals are 0). The issue form asks for checkbox acceptance criteria and a tech stack. Four Wave-eligible issues opened (#84–#87); the release notes list the deployed contracts. |
